@@ -1,0 +1,1 @@
+include ':app', ':database', ':custom_view', ':custom_views'
