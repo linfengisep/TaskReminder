@@ -3,12 +3,13 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
 public class MessageEditView extends ConstraintLayout {
 
-    private TextInputEditText messageEditView;
+    private AppCompatEditText messageEditView;
     private AppCompatImageView sendButtonView;
 
     private int sendButtonImage;
@@ -60,7 +61,7 @@ public class MessageEditView extends ConstraintLayout {
         requestLayout();
     }
 
-    public TextInputEditText getMessageEditView() {
+    public AppCompatEditText getMessageEditView() {
         return messageEditView;
     }
 

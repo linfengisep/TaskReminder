@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    >
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/card_icon"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:contentDescription="photo"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:roundAsCircle="true"
+        app:roundingBorderWidth="1dp"
+        app:failureImage="@drawable/ic_person"
+        />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/card_title"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.65"
+        app:layout_constraintWidth_default="percent"
+        android:includeFontPadding="false"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/middle_separator"
+        app:layout_constraintStart_toEndOf="@id/card_icon"
+        tools:text="title"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/card_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/card_icon"
+        app:layout_constraintTop_toBottomOf="@id/middle_separator"
+        tools:text="subtitle"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingBottom="10dp"
+        android:textSize="13sp"
+        android:gravity="top"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        />
+
+    <View
+        android:id="@+id/middle_separator"
+        android:layout_height="1dp"
+        android:layout_width="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+</android.support.constraint.ConstraintLayout>

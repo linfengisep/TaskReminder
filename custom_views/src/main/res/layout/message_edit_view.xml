@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MessageEditView">
 
-    <android.support.design.widget.TextInputEditText
+    <android.support.v7.widget.AppCompatEditText
         android:id="@+id/message_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:textColor="@color/spot_message_zone_text"
+        android:textColor="@color/colorPrimary"
         android:textSize="16sp"
         android:inputType="text|textAutoComplete|textMultiLine"
         android:background="@null"
@@ -25,7 +25,7 @@
         android:id="@+id/message_send_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/message_edit_send_button_bg"
+        android:background="@drawable/message_send_button_image"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="5dp"
