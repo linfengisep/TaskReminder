@@ -62,20 +62,20 @@ public class PrioritySelector extends RelativeLayout{
     }
 
     private void incrementValue() {
-        currentPriorityValue = Integer.valueOf(priorityValueView.getText().toString());
+        currentPriorityValue = getPriorityValue(priorityValueView.getText().toString());
         if(currentPriorityValue < high) {
-            priorityValueView.setText(getPriority(currentPriorityValue + 1));
+            priorityValueView.setText(getPriorityString(currentPriorityValue + 1));
         }
     }
 
     private void decrementValue() {
-        currentPriorityValue = Integer.valueOf(priorityValueView.getText().toString());
+        currentPriorityValue = getPriorityValue(priorityValueView.getText().toString());
         if(currentPriorityValue > low) {
-            priorityValueView.setText(getPriority(currentPriorityValue - 1));
+            priorityValueView.setText(getPriorityString(currentPriorityValue - 1));
         }
     }
 
-    private String getPriority(int level){
+    private String getPriorityString(int level){
         String priorityLevel=null;
         switch (level){
             case low:priorityLevel =getContext().getString(R.string.low);
@@ -86,6 +86,18 @@ public class PrioritySelector extends RelativeLayout{
             default:break;
         }
         return priorityLevel;
+    }
+
+    private int getPriorityValue(String valueString){
+        int levelPriority=0;
+        if(valueString.equals("low")){
+            levelPriority =1;
+        }else if(valueString.equals("middle")){
+            levelPriority =2;
+        }else if(valueString.equals("high")){
+            levelPriority =3;
+        }
+        return levelPriority;
     }
 
     /**
@@ -110,7 +122,7 @@ public class PrioritySelector extends RelativeLayout{
         } else if (newValue > high) {
             value = high;
         }
-        priorityValueView.setText(getPriority(value));
+        priorityValueView.setText(getPriorityString(value));
     }
 
 }
