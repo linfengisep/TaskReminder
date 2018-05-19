@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <View
+        android:id="@+id/center_vertical_separator"
+        android:layout_width="1dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <ImageView
+        android:id="@+id/minusButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:src="@drawable/minus"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/center_vertical_separator"
+        android:layout_marginEnd="@dimen/button_margin"
+        android:layout_marginRight="@dimen/button_margin"
+        />
+    <TextView
+        android:id="@+id/priorityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/valueSelector_label_text"
+        android:text="@string/valueSelector_label"
+        app:layout_constraintStart_toStartOf="@id/priorityView"
+        app:layout_constraintEnd_toEndOf="@id/priorityView"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:id="@+id/priorityView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/priority_size"
+        android:text="@string/middle"
+        android:background="@null"
+        android:textColor="@color/light_green"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/plusButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/plus"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/center_vertical_separator"
+        android:layout_marginStart="@dimen/button_margin"
+        android:layout_marginLeft="@dimen/button_margin"
+        />
+</android.support.constraint.ConstraintLayout>
+
