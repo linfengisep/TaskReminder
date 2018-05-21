@@ -25,8 +25,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_task_content"
         />
-
-
-
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/time_picker_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/priority_selector"
+        android:layout_marginTop="100dp"
+        android:onClick="openDatePickerDialog"
+        />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="50dp"
+        />
 </android.support.constraint.ConstraintLayout>
 </layout>

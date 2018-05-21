@@ -26,7 +26,6 @@ public class PrioritySelector extends RelativeLayout{
 
 
 
-
     public PrioritySelector(Context context) {
         this(context,null);
     }
@@ -46,17 +45,17 @@ public class PrioritySelector extends RelativeLayout{
         minusBtn = rootView.findViewById(R.id.minusButton);
         priorityValueView = rootView.findViewById(R.id.priorityView);
 
-        minusBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                decrementValue();
-            }
-        });
-
         plusBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 incrementValue();
+            }
+        });
+
+        minusBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                decrementValue();
             }
         });
     }
@@ -106,7 +105,7 @@ public class PrioritySelector extends RelativeLayout{
      * @return the current value
      */
     public int getValue() {
-        return Integer.valueOf(priorityValueView.getText().toString());
+        return getPriorityValue(priorityValueView.getText().toString());
     }
 
     /**
@@ -125,4 +124,39 @@ public class PrioritySelector extends RelativeLayout{
         priorityValueView.setText(getPriorityString(value));
     }
 
+ /*
+    interface OnPlusPriorityLevelListener{
+        void onPlusPriorityLevel(int priorityLevel);
+    }
+
+    interface OnMinusPriorityLevelListener{
+        void onMinusPriorityLevel(int priorityLevel);
+    }
+
+    public void setOnClickPlusPriorityLevel(OnPlusPriorityLevelListener listener){
+        this.plusPriorityLevelListener = listener;
+    }
+
+    public void setOnClickMinusPriorityLevel(OnMinusPriorityLevelListener listener){
+        this.minusPriorityLevelListener = listener;
+    }
+
+    public class PlusButtonClickCallback implements OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            incrementValue();
+            plusPriorityLevelListener.onPlusPriorityLevel(currentPriorityValue);
+        }
+    }
+
+    public class MinusButtonClickCallback implements OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            decrementValue();
+            minusPriorityLevelListener.onMinusPriorityLevel(currentPriorityValue);
+        }
+    }
+*/
 }
