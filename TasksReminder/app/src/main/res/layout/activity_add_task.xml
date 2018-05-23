@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
@@ -8,14 +8,63 @@
 <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v7.widget.AppCompatEditText
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/bar_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/user_profile_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/profile_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="add new item"
+                android:textColor="@color/light_yellow"
+                android:textSize="20sp"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center"
+                />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/add_task_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bar_section"
+        />
+    <android.support.v7.widget.AppCompatAutoCompleteTextView
         android:id="@+id/edit_task_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/task_content_bg"
+
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="9dp"
+        android:paddingLeft="15dp"
+        android:paddingStart="15dp"
+        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
+        android:textSize="17sp"
+        android:maxLines="1"
+        android:textColor="@color/light_blue"
+        android:textColorHint="@color/light_yellow"
+
+        android:drawableLeft="@drawable/ic_person"
+        android:drawableStart="@drawable/ic_person"
+
         android:hint="tape here"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_task_title"
         />
     <com.example.custom_views.PrioritySelector
         android:id="@+id/priority_selector"
@@ -24,25 +73,62 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_task_content"
+
+        android:layout_marginTop="30dp"
         />
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/time_picker_btn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/priority_selector"
-        android:layout_marginTop="100dp"
-        android:onClick="openDatePickerDialog"
-        />
+   <android.support.v7.widget.LinearLayoutCompat
+       android:id="@+id/time_zone"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/priority_selector"
+       android:layout_marginTop="50dp"
+
+       android:gravity="center_horizontal"
+       >
+       <android.support.v7.widget.AppCompatImageView
+           android:id="@+id/timer_icon"
+           android:layout_width="wrap_content"
+           android:layout_height="match_parent"
+           app:srcCompat="@drawable/ic_timer"
+           tools:ignore="VectorDrawableCompat"
+           android:layout_marginRight="20dp"
+           android:layout_marginEnd="20dp"
+           />
+       <android.support.v7.widget.AppCompatTextView
+           android:id="@+id/date_picker"
+           android:layout_width="wrap_content"
+           android:layout_height="40dp"
+           android:minWidth="60dp"
+           android:hint="date"
+           android:layout_gravity="center"
+           android:onClick="openDatePickerDialog"
+           android:background="@color/light_yellow"
+           />
+       <android.support.v7.widget.AppCompatTextView
+           android:id="@+id/time_picker"
+           android:layout_width="wrap_content"
+           android:minWidth="60dp"
+           android:layout_height="40dp"
+           android:layout_marginLeft="20dp"
+           android:layout_marginStart="20dp"
+           android:layout_gravity="center"
+           android:hint="time"
+           android:background="@color/light_green"
+           android:onClick="openTimePickerDialog"
+           />
+   </android.support.v7.widget.LinearLayoutCompat>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/submit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/time_zone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp"
         />
 </android.support.constraint.ConstraintLayout>
 </layout>
