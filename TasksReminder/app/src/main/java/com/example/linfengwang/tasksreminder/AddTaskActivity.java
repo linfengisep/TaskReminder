@@ -51,7 +51,7 @@ public class AddTaskActivity extends AppCompatActivity {
             Drawable sourceImage = getResources().getDrawable(R.drawable.back_button_image);
             Bitmap bitmap = ((BitmapDrawable) sourceImage).getBitmap();
             Drawable smallImage =
-                    new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 35, 60, true));
+                    new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 85, 100, true));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(smallImage);
             getSupportActionBar().setDisplayShowTitleEnabled(false);

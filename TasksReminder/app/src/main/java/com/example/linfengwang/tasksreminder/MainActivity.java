@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
         Fresco.initialize(this);
         setContentView(R.layout.activity_main);
         taskItemView = findViewById(R.id.task_item);
-        taskItemView.setIconUrl("https://www.firstinternet.co.uk/blog/wp-content/themes/firstinternet/assets/images/portfolio/panda.jpg");
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        taskItemView.setBackgroundResId(R.drawable.panda);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -46,9 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement

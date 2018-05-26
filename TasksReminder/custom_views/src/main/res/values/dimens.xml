@@ -6,4 +6,8 @@
     <dimen name="valueSelector_button_hMargin">25dp</dimen>
     <dimen name="valueSelector_button_insideMargin">10dp</dimen>
     <dimen name="button_margin">60dp</dimen>
+    <dimen name="button_size">40dp</dimen>
+    <dimen name="button_priority">40dp</dimen>
+    <dimen name="task_content_height">40dp</dimen>
+    <dimen name="button_width">60dp</dimen>
 </resources>

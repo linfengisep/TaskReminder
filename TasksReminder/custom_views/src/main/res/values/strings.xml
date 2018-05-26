@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Custom_Views</string>
-    <string name="valueSelector_label">VALUE</string>
-    <string name="valueBarLabel">CURRENT VALUE</string>
+    <string name="valueSelector_label">Value</string>
+    <string name="valueBarLabel">Current value</string>
     <string name="low">low</string>
     <string name="high">high</string>
     <string name="middle">middle</string>

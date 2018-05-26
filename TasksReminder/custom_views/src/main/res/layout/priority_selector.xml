@@ -14,8 +14,8 @@
         />
     <ImageView
         android:id="@+id/minusButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/button_priority"
+        android:layout_height="@dimen/button_priority"
         android:clickable="true"
         android:src="@drawable/minus"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -51,8 +51,8 @@
 
     <ImageView
         android:id="@+id/plusButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/button_priority"
+        android:layout_height="@dimen/button_priority"
         android:src="@drawable/plus"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"

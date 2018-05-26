@@ -5,13 +5,14 @@ import android.content.res.TypedArray;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
 public class TaskItemView extends ConstraintLayout{
-    private SimpleDraweeView iconImageView;
+    private AppCompatImageView iconImageView;
     private AppCompatTextView titleTextView;
     private AppCompatTextView subtitleTextView;
 
@@ -51,9 +52,6 @@ public class TaskItemView extends ConstraintLayout{
 
             this.titleTextView.setText(title);
             this.subtitleTextView.setText(subtitle);
-            if (iconUrl != null) {
-                setIconUrl(iconUrl);
-            }
             setBackgroundResId(backgroundResId);
         } finally {
             a.recycle();
@@ -62,14 +60,10 @@ public class TaskItemView extends ConstraintLayout{
 
 
     @Nullable
-    public SimpleDraweeView getIcon() {
+    public AppCompatImageView getIcon() {
         return iconImageView;
     }
 
-    public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
-        iconImageView.setImageURI(iconUrl);
-    }
 
     @Nullable public String getTitle() {
         return title;
