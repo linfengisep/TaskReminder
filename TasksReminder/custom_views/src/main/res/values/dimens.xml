@@ -10,4 +10,6 @@
     <dimen name="button_priority">40dp</dimen>
     <dimen name="task_content_height">40dp</dimen>
     <dimen name="button_width">60dp</dimen>
+    <dimen name="button_width_date">75dp</dimen>
+    <dimen name="task_item_icon">45dp</dimen>
 </resources>

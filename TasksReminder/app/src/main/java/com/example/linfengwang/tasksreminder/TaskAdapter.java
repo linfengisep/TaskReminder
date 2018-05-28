@@ -17,12 +17,12 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<TaskItem> dataList;
+    private List<TaskItemTemp> dataList;
     private Context context;
     private TaskItemClickListener itemClickListener;
     private PreferenceManager sharedPreferenceManager;
 
-    public TaskAdapter(Context context, List<TaskItem> list,
+    public TaskAdapter(Context context, List<TaskItemTemp> list,
                        TaskItemClickListener listener, PreferenceManager sharedPreferenceManager) {
         this.dataList = list;
         this.context = context;
@@ -43,7 +43,7 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public interface TaskItemClickListener {
-        void onCardItemClick(TaskItem taskItem);
+        void onCardItemClick(TaskItemTemp taskItem);
     }
 
     // friend info view holder;
@@ -65,7 +65,7 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             });
         }
 
-        private void setContent(TaskItem taskItem){
+        private void setContent(TaskItemTemp taskItem){
             taskTitle.setText(taskItem.task);
             taskSubTitle.setText(taskItem.taskPriority);
             drawRoundedImage(icon,R.drawable.panda, DpUtil.dpToPixel(40,context));

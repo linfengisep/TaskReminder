@@ -3,8 +3,6 @@ package com.example.linfengwang.tasksreminder;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,8 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
@@ -24,6 +20,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.database.Entity.TaskItem;
 import com.example.linfengwang.tasksreminder.databinding.ActivityAddTaskBinding;
 
 import java.util.Calendar;
@@ -48,12 +45,14 @@ public class AddTaskActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             //change image size;
-            Drawable sourceImage = getResources().getDrawable(R.drawable.back_button_image);
-            Bitmap bitmap = ((BitmapDrawable) sourceImage).getBitmap();
+            //Drawable sourceImage = getResources().getDrawable(R.drawable.back_button_image);
+            Drawable sourceImage = getResources().getDrawable(R.drawable.ic_arrow_back);
+            /*Bitmap bitmap = ((BitmapDrawable) sourceImage).getBitmap();
             Drawable smallImage =
                     new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 85, 100, true));
+                    */
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeAsUpIndicator(smallImage);
+            getSupportActionBar().setHomeAsUpIndicator(sourceImage);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
@@ -65,6 +64,9 @@ public class AddTaskActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
                 taskBinding.datePicker.setText(String.format(Locale.getDefault(),"%d:%d:%d",mDate,mMonth,mYear));
                 taskBinding.timePicker.setText(String.format(Locale.getDefault(),"%d:%d", mHour, mMinute));
+
+                //save data in database;
+                TaskItem taskItem = new TaskItem()
             }
         });
 
@@ -103,8 +105,6 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     public void openDatePickerDialog(View view){
-        Toast.makeText(getApplicationContext(),"date picker",Toast.LENGTH_SHORT).show();
-
         datePickerDialog=new MaterialDialog.Builder(view.getContext())
                 .title(getResources().getString(R.string.time_picker))
                 .customView(R.layout.date_picker_dialog,false)
@@ -133,6 +133,7 @@ public class AddTaskActivity extends AppCompatActivity {
                     }
                 }
                 datePickerDialog.dismiss();
+                taskBinding.datePicker.setText(String.format(Locale.getDefault(),"%d/%d/%d",mDate,mMonth,mYear));
             }
         });
 
@@ -159,5 +160,6 @@ public class AddTaskActivity extends AppCompatActivity {
         }, hour, minute, true);
         timePicker.setTitle("Select Time");
         timePicker.show();
+        taskBinding.timePicker.setText(String.format(Locale.getDefault(),"%d : %d",mHour,mMinute));
     }
 }

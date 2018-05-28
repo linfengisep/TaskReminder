@@ -18,7 +18,6 @@ public class TaskItemView extends ConstraintLayout{
 
     private String title;
     private String subtitle;
-    private String iconUrl;
     @DrawableRes
     private int backgroundResId;
 
@@ -44,7 +43,6 @@ public class TaskItemView extends ConstraintLayout{
         try {
             title = a.getString(R.styleable.TaskItemView_title);
             subtitle = a.getString(R.styleable.TaskItemView_subtitle);
-            iconUrl = a.getString(R.styleable.TaskItemView_iconUrl);
             backgroundResId = a.getResourceId(
                     R.styleable.TaskItemView_backgroundDrawable,
                     R.drawable.ic_person

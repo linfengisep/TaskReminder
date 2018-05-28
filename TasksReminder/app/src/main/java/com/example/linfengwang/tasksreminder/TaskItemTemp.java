@@ -1,6 +1,6 @@
 package com.example.linfengwang.tasksreminder;
 
-public class TaskItem {
+public class TaskItemTemp {
     public String task;
     public String taskPriority;
 }

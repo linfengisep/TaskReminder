@@ -49,8 +49,8 @@
         android:textColor="@color/light_blue"
         android:textColorHint="@color/light_yellow"
 
-        android:drawableLeft="@drawable/ic_person"
-        android:drawableStart="@drawable/ic_person"
+        android:drawableLeft="@drawable/ic_work"
+        android:drawableStart="@drawable/ic_work"
 
         android:drawablePadding="10dp"
         android:hint="tape task here"
