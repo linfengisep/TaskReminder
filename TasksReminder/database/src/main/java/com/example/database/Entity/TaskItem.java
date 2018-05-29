@@ -22,10 +22,6 @@ import java.time.OffsetDateTime;
     private OffsetDateTime lastUpdate;
     private TaskStatus taskStatus;
 
-    public TaskItem(String taskContent, TaskPriority taskPriority, OffsetDateTime creationDate, OffsetDateTime lastUpdate, TaskStatus taskStatus) {
-        this(0,taskContent,taskPriority,creationDate,lastUpdate,taskStatus);
-    }
-
     public TaskItem(int taskId, String taskContent, TaskPriority taskPriority, OffsetDateTime creationDate, OffsetDateTime lastUpdate, TaskStatus taskStatus) {
         this.taskId = taskId;
         this.taskContent = taskContent;

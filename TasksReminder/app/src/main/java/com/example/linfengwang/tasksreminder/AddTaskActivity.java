@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.database.Entity.TaskItem;
+import com.example.database.SharePreferenceManager;
 import com.example.linfengwang.tasksreminder.databinding.ActivityAddTaskBinding;
 
 import java.util.Calendar;
@@ -32,6 +33,7 @@ public class AddTaskActivity extends AppCompatActivity {
     private View positiveBtn,negativeBtn;
     private DatePicker datePicker;
     private TimePickerDialog timePicker;
+    private SharePreferenceManager sharePreferenceManager;
 
     private int mHour, mMinute,mDate,mMonth,mYear;
 
@@ -40,6 +42,8 @@ public class AddTaskActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         taskBinding = DataBindingUtil.setContentView(this,R.layout.activity_add_task);
+        sharePreferenceManager = new SharePreferenceManager(getApplicationContext());
+        sharePreferenceManager.setTaskId(1);
         //back button;
         Toolbar toolbar = findViewById(R.id.user_profile_toolbar);
         setSupportActionBar(toolbar);
@@ -66,7 +70,8 @@ public class AddTaskActivity extends AppCompatActivity {
                 taskBinding.timePicker.setText(String.format(Locale.getDefault(),"%d:%d", mHour, mMinute));
 
                 //save data in database;
-                TaskItem taskItem = new TaskItem()
+                //TaskItem taskItem = new TaskItem(sharePreferenceManager.getTaskId()+1,);
+
             }
         });
 
