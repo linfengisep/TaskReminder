@@ -20,7 +20,7 @@ public interface TaskItemDao {
     Flowable<List<TaskItem>> getAll();
 
     /** Returns a {@link Flowable} of task. */
-    @Query("SELECT * FROM TaskItem WHERE TaskItem.taskId =:taskId ORDER by creationDate ASC")
+    @Query("SELECT * FROM TaskItem WHERE TaskItem.id =:taskId ORDER by creationDate ASC")
     Single<List<TaskItem>> getUserFriends(int taskId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

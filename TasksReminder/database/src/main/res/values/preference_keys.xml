@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools"
-    tools:translatable="false">
-    <string name="preference_file_key">com.example.database.PREFERENCE_FILE</string>
-    <string name="facebook_user_token">task_id_key</string>
-</resources>

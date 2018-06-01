@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 27// for all the version below
     defaultConfig {
         applicationId "com.example.linfengwang.tasksreminder"
-        minSdkVersion 15
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion 16
+        targetSdkVersion 27 //version used to test
+        versionCode 1  //version number of app
+        versionName "1.0"  //user-friendly version name for your app
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -27,6 +27,7 @@ dependencies {
     implementation project(':database')
     implementation 'com.facebook.fresco:fresco:1.9.0'
     implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:exifinterface:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:design:27.1.1'
     testImplementation 'junit:junit:4.12'
@@ -34,4 +35,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'
 }

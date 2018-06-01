@@ -12,18 +12,22 @@ import java.time.OffsetDateTime;
 
 @Entity(indices = {
         @Index(value = {"taskContent"}),
-        @Index(value = {"taskId"})
+        @Index(value = {"id"})
 }) public class TaskItem {
     @PrimaryKey(autoGenerate = true)
-    private int taskId;
+    private int id;
     private String taskContent;
     private TaskPriority taskPriority;
     private OffsetDateTime creationDate;
     private OffsetDateTime lastUpdate;
     private TaskStatus taskStatus;
 
+    public TaskItem(String taskContent, TaskPriority taskPriority, OffsetDateTime creationDate, OffsetDateTime lastUpdate, TaskStatus taskStatus) {
+        this(0,taskContent,taskPriority,creationDate,lastUpdate,taskStatus);
+    }
+
     public TaskItem(int taskId, String taskContent, TaskPriority taskPriority, OffsetDateTime creationDate, OffsetDateTime lastUpdate, TaskStatus taskStatus) {
-        this.taskId = taskId;
+        this.id = taskId;
         this.taskContent = taskContent;
         this.taskPriority = taskPriority;
         this.creationDate = creationDate;
@@ -31,8 +35,12 @@ import java.time.OffsetDateTime;
         this.taskStatus = taskStatus;
     }
 
-    public int getTaskId() {
-        return taskId;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTaskContent() {
@@ -54,5 +62,4 @@ import java.time.OffsetDateTime;
     public TaskStatus getTaskStatus() {
         return taskStatus;
     }
-
 }
