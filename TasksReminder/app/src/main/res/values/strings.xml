@@ -4,4 +4,5 @@
     <string name="time_picker">Choose a date</string>
     <string name="valid">Valid</string>
     <string name="cancel">Cancel</string>
+    <string name="yesterday">yesterday</string>
 </resources>

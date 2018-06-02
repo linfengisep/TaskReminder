@@ -19,7 +19,7 @@ public class TaskItemView extends ConstraintLayout{
     private String title;
     private String subtitle;
     @DrawableRes
-    private int backgroundResId;
+    private int photoImage;
 
     public TaskItemView(Context context) {
         this(context,null);
@@ -43,14 +43,10 @@ public class TaskItemView extends ConstraintLayout{
         try {
             title = a.getString(R.styleable.TaskItemView_title);
             subtitle = a.getString(R.styleable.TaskItemView_subtitle);
-            backgroundResId = a.getResourceId(
-                    R.styleable.TaskItemView_backgroundDrawable,
-                    R.drawable.ic_person
-            );
 
             this.titleTextView.setText(title);
             this.subtitleTextView.setText(subtitle);
-            setBackgroundResId(backgroundResId);
+            setPhotoImage(photoImage);
         } finally {
             a.recycle();
         }
@@ -105,9 +101,9 @@ public class TaskItemView extends ConstraintLayout{
         return subtitleTextView;
     }
 
-    public void setBackgroundResId(@DrawableRes int backgroundResId) {
-        this.backgroundResId = backgroundResId;
-        setBackgroundResource(backgroundResId);
+    public void setPhotoImage(@DrawableRes int photoImage) {
+        this.photoImage = photoImage;
+        iconImageView.setImageResource(photoImage);
         redrawView();
     }
 

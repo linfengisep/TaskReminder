@@ -1,10 +1,8 @@
 package com.example.database.converters;
 
 import android.arch.persistence.room.TypeConverter;
-import android.arch.persistence.room.TypeConverters;
 
-import com.example.database.Dao.TaskItemDao;
-import com.example.database.Entity.TaskPriority;
+import com.example.database.TaskPriority;
 
 public final class TaskPriorityConverter {
     private TaskPriorityConverter(){}

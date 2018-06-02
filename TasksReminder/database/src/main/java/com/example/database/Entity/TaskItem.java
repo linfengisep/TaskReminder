@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 import com.example.database.TaskPriority;
 import com.example.database.TaskStatus;
 
-import java.time.OffsetDateTime;
+import org.threeten.bp.OffsetDateTime;
 
 
 @Entity(indices = {
@@ -18,20 +18,20 @@ import java.time.OffsetDateTime;
     private int id;
     private String taskContent;
     private TaskPriority taskPriority;
+    private OffsetDateTime taskDeadline;
     private OffsetDateTime creationDate;
-    private OffsetDateTime lastUpdate;
     private TaskStatus taskStatus;
 
-    public TaskItem(String taskContent, TaskPriority taskPriority, OffsetDateTime creationDate, OffsetDateTime lastUpdate, TaskStatus taskStatus) {
-        this(0,taskContent,taskPriority,creationDate,lastUpdate,taskStatus);
+    public TaskItem(String taskContent, TaskPriority taskPriority, OffsetDateTime creationDate, OffsetDateTime taskDeadline, TaskStatus taskStatus) {
+        this(0,taskContent,taskPriority,creationDate,taskDeadline,taskStatus);
     }
 
-    public TaskItem(int taskId, String taskContent, TaskPriority taskPriority, OffsetDateTime creationDate, OffsetDateTime lastUpdate, TaskStatus taskStatus) {
+    public TaskItem(int taskId, String taskContent, TaskPriority taskPriority, OffsetDateTime creationDate, OffsetDateTime taskDeadline, TaskStatus taskStatus) {
         this.id = taskId;
         this.taskContent = taskContent;
         this.taskPriority = taskPriority;
         this.creationDate = creationDate;
-        this.lastUpdate = lastUpdate;
+        this.taskDeadline = taskDeadline;
         this.taskStatus = taskStatus;
     }
 
@@ -55,8 +55,12 @@ import java.time.OffsetDateTime;
         return creationDate;
     }
 
-    public OffsetDateTime getLastUpdate() {
-        return lastUpdate;
+    public OffsetDateTime getTaskDeadline() {
+        return taskDeadline;
+    }
+
+    public void setTaskDeadline(OffsetDateTime taskDeadline) {
+        this.taskDeadline = taskDeadline;
     }
 
     public TaskStatus getTaskStatus() {

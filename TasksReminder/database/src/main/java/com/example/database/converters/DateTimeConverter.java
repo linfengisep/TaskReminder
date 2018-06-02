@@ -7,11 +7,13 @@ import org.threeten.bp.format.DateTimeFormatter;
 
 public final class DateTimeConverter {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-    private DateTimeConverter(){}
-    @TypeConverter public static String fromOffsetDateTime(OffsetDateTime date){
+
+    @TypeConverter
+    public static String toString(OffsetDateTime date){
         return date.format(FORMATTER);
     }
-    @TypeConverter public static OffsetDateTime toOffsetTime(String value){
+    @TypeConverter
+    public static OffsetDateTime fromString(String value){
         return FORMATTER.parse(value,OffsetDateTime.FROM);
     }
 }

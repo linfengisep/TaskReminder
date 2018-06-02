@@ -19,6 +19,10 @@ android {
     dataBinding {
         enabled = true
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -36,4 +40,5 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'
+    implementation 'com.xwray:groupie:2.1.0'
 }

@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -20,9 +19,15 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.database.AppDataBase;
 import com.example.database.Entity.TaskItem;
 import com.example.database.SharePreferenceManager;
+import com.example.database.TaskPriority;
+import com.example.database.TaskStatus;
+import com.example.database.converters.TaskPriorityConverter;
 import com.example.linfengwang.tasksreminder.databinding.ActivityAddTaskBinding;
+
+import org.threeten.bp.OffsetDateTime;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -36,45 +41,37 @@ public class AddTaskActivity extends AppCompatActivity {
     private SharePreferenceManager sharePreferenceManager;
 
     private int mHour, mMinute,mDate,mMonth,mYear;
+    private TaskPriority priority;
 
     private String taskContent;
+
+    private AppDataBase appDataBase;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         taskBinding = DataBindingUtil.setContentView(this,R.layout.activity_add_task);
+
         sharePreferenceManager = new SharePreferenceManager(getApplicationContext());
         sharePreferenceManager.setTaskId(1);
+
+        //get database;
+
         //back button;
         Toolbar toolbar = findViewById(R.id.user_profile_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            //change image size;
-            //Drawable sourceImage = getResources().getDrawable(R.drawable.back_button_image);
             Drawable sourceImage = getResources().getDrawable(R.drawable.ic_arrow_back);
-            /*Bitmap bitmap = ((BitmapDrawable) sourceImage).getBitmap();
-            Drawable smallImage =
-                    new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 85, 100, true));
-                    */
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(sourceImage);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        // task priority
+        if(taskBinding.prioritySelector.getValue() !=0){
+            priority = TaskPriorityConverter.fromInteger(taskBinding.prioritySelector.getValue());
+        }
 
-        taskBinding.submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view,"value:"+taskBinding.prioritySelector.getValue(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                taskBinding.datePicker.setText(String.format(Locale.getDefault(),"%d:%d:%d",mDate,mMonth,mYear));
-                taskBinding.timePicker.setText(String.format(Locale.getDefault(),"%d:%d", mHour, mMinute));
-
-                //save data in database;
-                //TaskItem taskItem = new TaskItem(sharePreferenceManager.getTaskId()+1,);
-
-            }
-        });
-
+        // task content;
         taskBinding.editTaskContent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -91,6 +88,27 @@ public class AddTaskActivity extends AppCompatActivity {
                 taskContent = s.toString().trim();
                 Toast.makeText(getApplicationContext(),taskContent,Toast.LENGTH_SHORT).show();
             }
+        });
+        //task creation time
+        //OffsetDateTime rightNow = OffsetDateTime.now();
+        //submit task;
+        taskBinding.submitButton.setOnClickListener(view ->{
+            //show words to users;
+            if(taskContent.isEmpty()){
+                Toast.makeText(this,"Add a task",Toast.LENGTH_SHORT
+                ).show();
+            }else {
+                Toast.makeText(this,"Task:"+taskContent+","+priority+"priority is saved",Toast.LENGTH_SHORT
+                ).show();
+            }
+
+            /*TaskItem taskItem = new TaskItem(taskContent,
+                    priority,
+                    rightNow,
+                    getOffsetTimeFromDate(mYear,mMonth,mDate,mHour,mMinute),
+                    TaskStatus.UNDONE
+            );
+            */
         });
 
     }
@@ -158,13 +176,22 @@ public class AddTaskActivity extends AppCompatActivity {
         timePicker = new TimePickerDialog(AddTaskActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                Toast.makeText(AddTaskActivity.this, selectedHour + ":" + selectedMinute,Toast.LENGTH_SHORT).show();
                 mHour = selectedHour;
                 mMinute = selectedMinute;
+                taskBinding.timePicker.setText(String.format(Locale.getDefault(),"%d : %d",mHour,mMinute));
             }
         }, hour, minute, true);
         timePicker.setTitle("Select Time");
         timePicker.show();
-        taskBinding.timePicker.setText(String.format(Locale.getDefault(),"%d : %d",mHour,mMinute));
+    }
+
+    private OffsetDateTime getOffsetTimeFromDate(int mYear,int mMonth,int mDate,int mHour,int mMinute){
+        OffsetDateTime deadline = OffsetDateTime.now();
+        deadline.withYear(mYear);
+        deadline.withMonth(mMonth);
+        deadline.withDayOfMonth(mDate);
+        deadline.withHour(mHour);
+        deadline.withMinute(mMinute);
+        return deadline;
     }
 }

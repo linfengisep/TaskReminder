@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="priority_size">20sp</dimen>
-    <dimen name="valueSelector_label_text">14sp</dimen>
+    <dimen name="ten">10dp</dimen>
+    <dimen name="twenty">20dp</dimen>
+    <dimen name="thirty">30dp</dimen>
+    <dimen name="forty">40dp</dimen>
+    <dimen name="fifty">50dp</dimen>
+    <dimen name="sixty">60dp</dimen>
+    <dimen name="seventy">70dp</dimen>
+    <dimen name="eighty">80dp</dimen>
+    <dimen name="ninety">90dp</dimen>
+    <dimen name="hundred">100dp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
     <dimen name="valueSelector_margin_top">14dp</dimen>
     <dimen name="valueSelector_button_hMargin">25dp</dimen>
     <dimen name="valueSelector_button_insideMargin">10dp</dimen>
@@ -12,4 +22,8 @@
     <dimen name="button_width">60dp</dimen>
     <dimen name="button_width_date">75dp</dimen>
     <dimen name="task_item_icon">45dp</dimen>
+
+
+    <dimen name="priority_size">20sp</dimen>
+    <dimen name="valueSelector_label_text">14sp</dimen>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.linfengwang.tasksreminder;
 import android.content.Context;
+import android.databinding.adapters.Converters;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
@@ -10,19 +11,22 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.custom_views.TaskItemView;
+import com.example.database.Entity.TaskItem;
+import com.example.database.converters.TaskPriorityConverter;
 import com.example.linfengwang.tasksreminder.TaskUtils.CircleTransformation;
 import com.example.linfengwang.tasksreminder.TaskUtils.DpUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Locale;
 
 public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<TaskItemTemp> dataList;
+    private List<TaskItem> dataList;
     private Context context;
     private TaskItemClickListener itemClickListener;
     private PreferenceManager sharedPreferenceManager;
 
-    public TaskAdapter(Context context, List<TaskItemTemp> list,
+    public TaskAdapter(Context context, List<TaskItem> list,
                        TaskItemClickListener listener, PreferenceManager sharedPreferenceManager) {
         this.dataList = list;
         this.context = context;
@@ -43,7 +47,7 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public interface TaskItemClickListener {
-        void onCardItemClick(TaskItemTemp taskItem);
+        void onCardItemClick(TaskItem taskItem);
     }
 
     // friend info view holder;
@@ -65,9 +69,9 @@ public class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             });
         }
 
-        private void setContent(TaskItemTemp taskItem){
-            taskTitle.setText(taskItem.task);
-            taskSubTitle.setText(taskItem.taskPriority);
+        private void setContent(TaskItem taskItem){
+            taskTitle.setText(taskItem.getTaskContent());
+            taskSubTitle.setText(String.format(Locale.getDefault(),"%d", TaskPriorityConverter.toInteger(taskItem.getTaskPriority())));
             drawRoundedImage(icon,R.drawable.panda, DpUtil.dpToPixel(40,context));
         }
         private void drawRoundedImage(AppCompatImageView iconView,int imageRes, int imageSize) {
