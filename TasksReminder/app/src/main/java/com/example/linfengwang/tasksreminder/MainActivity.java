@@ -12,9 +12,13 @@ import android.view.MenuItem;
 
 import com.example.custom_views.TaskItemView;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.xwray.groupie.GroupAdapter;
+import com.xwray.groupie.Section;
 
 public class MainActivity extends AppCompatActivity {
     private TaskItemView taskItemView;
+    private GroupAdapter taskItemAdapter;
+    private Section section;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
