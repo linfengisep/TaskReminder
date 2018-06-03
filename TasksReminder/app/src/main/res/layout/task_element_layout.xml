@@ -1,6 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/task_item_icon"
+        android:layout_width="@dimen/forty"
+        android:layout_height="@dimen/forty"
+        android:contentDescription="photo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="@dimen/ten"
+        android:layout_marginStart="@dimen/ten"
+
+        android:background="@drawable/task_item_icon_background"
+        />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/task_item_title"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.65"
+        app:layout_constraintWidth_default="percent"
+        android:includeFontPadding="false"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/middle_separator"
+        app:layout_constraintStart_toEndOf="@id/task_item_icon"
+        tools:text="title"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/task_item_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/task_item_icon"
+        app:layout_constraintTop_toBottomOf="@id/middle_separator"
+        tools:text="subtitle"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingBottom="@dimen/ten"
+        android:textSize="13sp"
+        android:gravity="top"
+        android:layout_marginStart="@dimen/ten"
+        android:layout_marginLeft="@dimen/ten"
+        />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/task_item_priority"
+        android:layout_width="@dimen/thirty"
+        android:layout_height="@dimen/thirty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/task_priority_background_indicator"
+        android:text="@string/high"
+        android:textSize="12sp"
+        android:gravity="center"
+        />
+
+    <View
+        android:id="@+id/middle_separator"
+        android:layout_height="1dp"
+        android:layout_width="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/task_item_icon"
+
+
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        />
 
 </android.support.constraint.ConstraintLayout>

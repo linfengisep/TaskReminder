@@ -23,12 +23,11 @@ import com.example.database.converters.TaskStatusConverter;
 })
 
 public abstract class AppDataBase extends RoomDatabase{
-    abstract TaskItemDao taskItemDao();
-
+    public abstract TaskItemDao taskItemDao();
 
     private static AppDataBase INSTANCE;
 
-    static AppDataBase getDatabase(final Context context){
+    public static AppDataBase getDatabase(final Context context){
         if(INSTANCE !=null){
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                     AppDataBase.class,"Task_Database").build();

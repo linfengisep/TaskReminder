@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".TaskActivity"
     >
 
     <android.support.design.widget.AppBarLayout
@@ -37,26 +37,13 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
-        <com.example.custom_views.TaskItemView
-            android:id="@+id/task_item"
-            android:layout_width="match_parent"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/task_item_recycler_view"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:title="shopping"
-            app:subtitle="today"
-            />
-
-        <com.example.custom_views.TaskItemView
-            android:id="@+id/task_item_second"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/task_item"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:title="sport"
-            app:subtitle="tomorrow"
             />
 
         <android.support.design.widget.FloatingActionButton

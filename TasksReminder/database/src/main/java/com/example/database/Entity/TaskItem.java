@@ -22,11 +22,19 @@ import org.threeten.bp.OffsetDateTime;
     private OffsetDateTime creationDate;
     private TaskStatus taskStatus;
 
-    public TaskItem(String taskContent, TaskPriority taskPriority, OffsetDateTime creationDate, OffsetDateTime taskDeadline, TaskStatus taskStatus) {
+    public TaskItem(String taskContent,
+                    TaskPriority taskPriority,
+                    OffsetDateTime creationDate,
+                    OffsetDateTime taskDeadline,
+                    TaskStatus taskStatus) {
         this(0,taskContent,taskPriority,creationDate,taskDeadline,taskStatus);
     }
 
-    public TaskItem(int taskId, String taskContent, TaskPriority taskPriority, OffsetDateTime creationDate, OffsetDateTime taskDeadline, TaskStatus taskStatus) {
+    public TaskItem(int taskId, String taskContent,
+                    TaskPriority taskPriority,
+                    OffsetDateTime creationDate,
+                    OffsetDateTime taskDeadline,
+                    TaskStatus taskStatus) {
         this.id = taskId;
         this.taskContent = taskContent;
         this.taskPriority = taskPriority;

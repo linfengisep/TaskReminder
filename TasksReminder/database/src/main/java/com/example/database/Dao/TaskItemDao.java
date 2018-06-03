@@ -1,5 +1,6 @@
 package com.example.database.Dao;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -17,16 +18,18 @@ import io.reactivex.Single;
 public interface TaskItemDao {
     /** Returns a {@link } of the list of tasks. */
     @Query("SELECT * FROM TaskItem ORDER by creationDate ASC")
-    Flowable<List<TaskItem>> getAll();
+    LiveData<List<TaskItem>> getAll();
 
     /** Returns a {@link Flowable} of task. */
     @Query("SELECT * FROM TaskItem WHERE TaskItem.id =:taskId ORDER by creationDate ASC")
-    Single<List<TaskItem>> getUserFriends(int taskId);
+    LiveData<List<TaskItem>> getUserFriends(int taskId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertFriends(List<TaskItem> tasks);
+    void insertTasks(List<TaskItem> tasks);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertTask(TaskItem taskItem);
     @Delete
-    void deleteFriends(List<TaskItem> taskItems);
+    void deleteTasks(List<TaskItem> taskItems);
 
 }

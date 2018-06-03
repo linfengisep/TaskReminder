@@ -20,10 +20,8 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.database.AppDataBase;
-import com.example.database.Entity.TaskItem;
 import com.example.database.SharePreferenceManager;
 import com.example.database.TaskPriority;
-import com.example.database.TaskStatus;
 import com.example.database.converters.TaskPriorityConverter;
 import com.example.linfengwang.tasksreminder.databinding.ActivityAddTaskBinding;
 
@@ -117,7 +115,7 @@ public class AddTaskActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case android.R.id.home:
-                    Intent liveActivity = new Intent(AddTaskActivity.this, MainActivity.class);
+                    Intent liveActivity = new Intent(AddTaskActivity.this, TaskActivity.class);
                     startActivity(liveActivity);
                     finish();
                 break;

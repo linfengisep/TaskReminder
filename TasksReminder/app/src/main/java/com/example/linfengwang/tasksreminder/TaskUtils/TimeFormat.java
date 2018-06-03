@@ -13,17 +13,17 @@ public final class TimeFormat {
     private TimeFormat() {
     }
 
-    public static String formatTime(Context context, long time) {
+    public static String formatTime(Context context, long milliSecond) {
         long currentTime = System.currentTimeMillis();
-        long dayDifference = compareDifference(time, currentTime);
+        long dayDifference = compareDifference(milliSecond, currentTime);
         if (dayDifference == 0) {
-            return new SimpleDateFormat("hh:mm", Locale.getDefault()).format(new Date(time));
+            return new SimpleDateFormat("hh:mm", Locale.getDefault()).format(new Date(milliSecond));
         } else if (dayDifference == 1) {
             return context.getString(R.string.yesterday);
         } else if (dayDifference > 1 && dayDifference < 7) {
-            return new SimpleDateFormat("EEE", Locale.getDefault()).format(new Date(time));
+            return new SimpleDateFormat("EEE", Locale.getDefault()).format(new Date(milliSecond));
         } else if (dayDifference >= 7) {
-            return new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(time));
+            return new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(milliSecond));
         } else {
             return "error";
         }

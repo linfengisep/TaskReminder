@@ -17,7 +17,7 @@
         android:layout_marginLeft="@dimen/ten"
         android:layout_marginStart="@dimen/ten"
 
-        android:background="@drawable/task_letter_background"
+        android:background="@drawable/task_item_icon_background"
         />
 
     <android.support.v7.widget.AppCompatTextView
