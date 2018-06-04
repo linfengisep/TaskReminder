@@ -1,23 +1,20 @@
-package com.example.linfengwang.tasksreminder;
-
+package com.example.database;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
-import com.example.database.AppDataBase;
 import com.example.database.Dao.TaskItemDao;
 import com.example.database.Entity.TaskItem;
 
 import java.util.List;
 
 /*
-*this class manage multiply thread in the background to save the task item to database;
+ *this class manage multiply thread in the background to save the task item to database;
  */
 public class TaskDatabaseRepo {
     private TaskItemDao taskItemDao;
     private LiveData<List<TaskItem>> taskList;
 
-    //use constructor to get a handles to database, and initialize the member variables;
     public TaskDatabaseRepo(Application application){
         AppDataBase db = AppDataBase.getDatabase(application);
         taskItemDao = db.taskItemDao();

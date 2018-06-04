@@ -17,10 +17,10 @@ import java.util.List;
 import java.util.Locale;
 
 public class TaskElement extends Item<TaskElement.TaskElementViewHolder> {
-    private List<TaskItem> taskItemList;
+    private TaskItem taskItem;
     private Context context;
-    public TaskElement(List<TaskItem> taskItemList,Context context){
-        this.taskItemList = taskItemList;
+    public TaskElement(TaskItem taskItem,Context context){
+        this.taskItem = taskItem;
         this.context = context;
     }
 
@@ -31,12 +31,12 @@ public class TaskElement extends Item<TaskElement.TaskElementViewHolder> {
 
     @Override
     public void bind(@NonNull TaskElementViewHolder viewHolder, int position) {
-        viewHolder.setTaskTitle(taskItemList.get(position).getTaskContent());
+        viewHolder.setTaskTitle(taskItem.getTaskContent());
         viewHolder.setTaskSubtitle(TimeFormat.formatTime(context,
-                taskItemList.get(position).getTaskDeadline().toEpochSecond()*1000));
+                taskItem.getTaskDeadline().toEpochSecond()*1000));
         viewHolder.setTaskPriority(String.format(Locale.getDefault(),"%d",
-                TaskPriorityConverter.toInteger(taskItemList.get(position).getTaskPriority())));
-        viewHolder.setTaskIcon(taskItemList.get(position).getTaskContent().substring(0,1));
+                TaskPriorityConverter.toInteger(taskItem.getTaskPriority())));
+        viewHolder.setTaskIcon(taskItem.getTaskContent().substring(0,1));
 
     }
 

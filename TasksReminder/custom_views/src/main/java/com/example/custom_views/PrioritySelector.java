@@ -74,7 +74,7 @@ public class PrioritySelector extends RelativeLayout{
         }
     }
 
-    private String getPriorityString(int level){
+    public String getPriorityString(int level){
         String priorityLevel=null;
         switch (level){
             case low:priorityLevel =getContext().getString(R.string.low);
@@ -87,7 +87,11 @@ public class PrioritySelector extends RelativeLayout{
         return priorityLevel;
     }
 
-    private int getPriorityValue(String valueString){
+    public String getPriorityString(){
+       return priorityValueView.getText().toString();
+    }
+
+    public int getPriorityValue(String valueString){
         int levelPriority=0;
         if(valueString.equals("low")){
             levelPriority =1;

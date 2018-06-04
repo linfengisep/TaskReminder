@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
 import com.example.database.Entity.TaskItem;
+import com.example.database.TaskDatabaseRepo;
 
 import java.util.List;
 
@@ -24,5 +25,9 @@ public class TaskActivityViewModel extends AndroidViewModel {
 
     public void insertTask(TaskItem taskItem){
         taskRepo.insertTask(taskItem);
+    }
+
+    public TaskDatabaseRepo getTaskRepo() {
+        return taskRepo;
     }
 }

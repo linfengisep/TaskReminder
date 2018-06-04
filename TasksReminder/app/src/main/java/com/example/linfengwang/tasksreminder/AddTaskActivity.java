@@ -1,5 +1,6 @@
 package com.example.linfengwang.tasksreminder;
 
+import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -21,8 +22,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.database.AppDataBase;
 import com.example.database.SharePreferenceManager;
-import com.example.database.TaskPriority;
-import com.example.database.converters.TaskPriorityConverter;
+import com.example.linfengwang.tasksreminder.TaskUtils.TimeFormat;
 import com.example.linfengwang.tasksreminder.databinding.ActivityAddTaskBinding;
 
 import org.threeten.bp.OffsetDateTime;
@@ -31,6 +31,13 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class AddTaskActivity extends AppCompatActivity {
+    public final static String TASK_CONTENT = "TASK_CONTENT";
+    public final static String TASK_PRIORITY = "TASK_PRIORITY";
+    public final static String TASK_DEADLINE_YEAR = "TASK_DEADLINE_YEAR";
+    public final static String TASK_DEADLINE_MONTH = "TASK_DEADLINE_MONTH";
+    public final static String TASK_DEADLINE_DATE = "TASK_DEADLINE_DATE";
+    public final static String TASK_DEADLINE_HOUR = "TASK_DEADLINE_HOUR";
+    public final static String TASK_DEADLINE_MINUTE = "TASK_DEADLINE_MINUTE";
     private ActivityAddTaskBinding taskBinding;
     private MaterialDialog datePickerDialog;
     private View positiveBtn,negativeBtn;
@@ -39,11 +46,8 @@ public class AddTaskActivity extends AppCompatActivity {
     private SharePreferenceManager sharePreferenceManager;
 
     private int mHour, mMinute,mDate,mMonth,mYear;
-    private TaskPriority priority;
-
+    private String priority;
     private String taskContent;
-
-    private AppDataBase appDataBase;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,22 +68,15 @@ public class AddTaskActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        // task priority
-        if(taskBinding.prioritySelector.getValue() !=0){
-            priority = TaskPriorityConverter.fromInteger(taskBinding.prioritySelector.getValue());
-        }
+            priority = taskBinding.prioritySelector.getPriorityString();
 
         // task content;
         taskBinding.editTaskContent.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -92,21 +89,25 @@ public class AddTaskActivity extends AppCompatActivity {
         //submit task;
         taskBinding.submitButton.setOnClickListener(view ->{
             //show words to users;
-            if(taskContent.isEmpty()){
+            if(taskContent.trim().isEmpty()){
                 Toast.makeText(this,"Add a task",Toast.LENGTH_SHORT
                 ).show();
             }else {
                 Toast.makeText(this,"Task:"+taskContent+","+priority+"priority is saved",Toast.LENGTH_SHORT
                 ).show();
             }
+            Intent taskIntent = new Intent(this,TaskActivity.class);
+            taskIntent.putExtra(TASK_CONTENT,taskContent.trim());
+            //taskIntent.putExtra(TASK_DEADLINE, TimeFormat.formatTimeInFuture(this,
+                    //getOffsetTimeFromDate(mYear,mMonth,mDate,mHour,mMinute).toEpochSecond()*1000));
+            taskIntent.putExtra(TASK_PRIORITY,priority);
+            taskIntent.putExtra(TASK_DEADLINE_YEAR,mYear);
+            taskIntent.putExtra(TASK_DEADLINE_MONTH,mMonth);
+            taskIntent.putExtra(TASK_DEADLINE_DATE,mDate);
+            taskIntent.putExtra(TASK_DEADLINE_HOUR,mHour);
 
-            /*TaskItem taskItem = new TaskItem(taskContent,
-                    priority,
-                    rightNow,
-                    getOffsetTimeFromDate(mYear,mMonth,mDate,mHour,mMinute),
-                    TaskStatus.UNDONE
-            );
-            */
+            setResult(Activity.RESULT_OK,taskIntent);
+            finish();
         });
 
     }
@@ -181,15 +182,5 @@ public class AddTaskActivity extends AppCompatActivity {
         }, hour, minute, true);
         timePicker.setTitle("Select Time");
         timePicker.show();
-    }
-
-    private OffsetDateTime getOffsetTimeFromDate(int mYear,int mMonth,int mDate,int mHour,int mMinute){
-        OffsetDateTime deadline = OffsetDateTime.now();
-        deadline.withYear(mYear);
-        deadline.withMonth(mMonth);
-        deadline.withDayOfMonth(mDate);
-        deadline.withHour(mHour);
-        deadline.withMinute(mMinute);
-        return deadline;
     }
 }

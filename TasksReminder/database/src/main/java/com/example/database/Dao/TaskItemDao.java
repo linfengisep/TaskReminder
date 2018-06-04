@@ -11,18 +11,15 @@ import com.example.database.Entity.TaskItem;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
-import io.reactivex.Single;
-
 @Dao
 public interface TaskItemDao {
     /** Returns a {@link } of the list of tasks. */
-    @Query("SELECT * FROM TaskItem ORDER by creationDate ASC")
+    @Query("SELECT * FROM TaskItem")
     LiveData<List<TaskItem>> getAll();
 
-    /** Returns a {@link Flowable} of task. */
-    @Query("SELECT * FROM TaskItem WHERE TaskItem.id =:taskId ORDER by creationDate ASC")
-    LiveData<List<TaskItem>> getUserFriends(int taskId);
+    /** Returns a {@link} of task. */
+    @Query("SELECT * FROM TaskItem WHERE TaskItem.id =:taskId")
+    LiveData<TaskItem> getTaskItemById(int taskId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTasks(List<TaskItem> tasks);
@@ -30,6 +27,5 @@ public interface TaskItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTask(TaskItem taskItem);
     @Delete
-    void deleteTasks(List<TaskItem> taskItems);
-
+    void deleteTasks(TaskItem taskItem);
 }
