@@ -40,10 +40,11 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/task_item_recycler_view"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/light_blue"
             />
 
         <android.support.design.widget.FloatingActionButton

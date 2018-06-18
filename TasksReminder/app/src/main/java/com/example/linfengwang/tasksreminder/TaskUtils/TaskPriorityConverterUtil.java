@@ -2,7 +2,7 @@ package com.example.linfengwang.tasksreminder.TaskUtils;
 
 import com.example.database.TaskPriority;
 
-public class TaskPriorityConverteurUtil {
+public class TaskPriorityConverterUtil {
     public static TaskPriority getTaskPriorityFromString(String valueString){
 
             if(valueString.equals("low")){

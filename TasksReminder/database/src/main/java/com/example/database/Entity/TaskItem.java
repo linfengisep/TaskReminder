@@ -67,10 +67,6 @@ import org.threeten.bp.OffsetDateTime;
         return taskDeadline;
     }
 
-    public void setTaskDeadline(OffsetDateTime taskDeadline) {
-        this.taskDeadline = taskDeadline;
-    }
-
     public TaskStatus getTaskStatus() {
         return taskStatus;
     }

@@ -20,12 +20,8 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.example.database.AppDataBase;
 import com.example.database.SharePreferenceManager;
-import com.example.linfengwang.tasksreminder.TaskUtils.TimeFormat;
 import com.example.linfengwang.tasksreminder.databinding.ActivityAddTaskBinding;
-
-import org.threeten.bp.OffsetDateTime;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -84,12 +80,11 @@ public class AddTaskActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),taskContent,Toast.LENGTH_SHORT).show();
             }
         });
-        //task creation time
-        //OffsetDateTime rightNow = OffsetDateTime.now();
-        //submit task;
+
         taskBinding.submitButton.setOnClickListener(view ->{
             //show words to users;
-            if(taskContent.trim().isEmpty()){
+
+            if(taskContent.isEmpty()){
                 Toast.makeText(this,"Add a task",Toast.LENGTH_SHORT
                 ).show();
             }else {
@@ -98,13 +93,12 @@ public class AddTaskActivity extends AppCompatActivity {
             }
             Intent taskIntent = new Intent(this,TaskActivity.class);
             taskIntent.putExtra(TASK_CONTENT,taskContent.trim());
-            //taskIntent.putExtra(TASK_DEADLINE, TimeFormat.formatTimeInFuture(this,
-                    //getOffsetTimeFromDate(mYear,mMonth,mDate,mHour,mMinute).toEpochSecond()*1000));
             taskIntent.putExtra(TASK_PRIORITY,priority);
             taskIntent.putExtra(TASK_DEADLINE_YEAR,mYear);
             taskIntent.putExtra(TASK_DEADLINE_MONTH,mMonth);
             taskIntent.putExtra(TASK_DEADLINE_DATE,mDate);
             taskIntent.putExtra(TASK_DEADLINE_HOUR,mHour);
+            taskIntent.putExtra(TASK_DEADLINE_MINUTE,mMinute);
 
             setResult(Activity.RESULT_OK,taskIntent);
             finish();

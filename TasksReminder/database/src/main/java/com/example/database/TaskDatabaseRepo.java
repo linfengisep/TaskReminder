@@ -40,4 +40,18 @@ public class TaskDatabaseRepo {
             return null;
         }
     }
+
+    public void deleteTask(TaskItem item){
+        new DeleteTaskAsyncTask(taskItemDao).execute(item);
+    }
+
+    private static class DeleteTaskAsyncTask extends AsyncTask<TaskItem,Void,Void>{
+        private TaskItemDao taskItemDao;
+        DeleteTaskAsyncTask(TaskItemDao taskItemDao){this.taskItemDao = taskItemDao;}
+        @Override
+        protected Void doInBackground(final TaskItem... taskItems) {
+            taskItemDao.deleteTasks(taskItems[0]);
+            return null;
+        }
+    }
 }

@@ -9,11 +9,13 @@ import com.example.database.TaskDatabaseRepo;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class TaskActivityViewModel extends AndroidViewModel {
     private TaskDatabaseRepo taskRepo;
     private LiveData<List<TaskItem>> mTaskLists;
 
-    public TaskActivityViewModel(Application application){
+   @Inject public TaskActivityViewModel(Application application){
         super(application);
         taskRepo = new TaskDatabaseRepo(application);
         mTaskLists = taskRepo.getTaskList();
@@ -29,5 +31,9 @@ public class TaskActivityViewModel extends AndroidViewModel {
 
     public TaskDatabaseRepo getTaskRepo() {
         return taskRepo;
+    }
+
+    public void deleteTask(TaskItem taskItem){
+       taskRepo.deleteTask(taskItem);
     }
 }
