@@ -2,6 +2,9 @@ package com.example.linfengwang.tasksreminder;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.database.Entity.TaskItem;
+import com.example.database.TaskPriority;
 import com.example.database.TaskStatus;
 import com.example.linfengwang.tasksreminder.TaskUtils.TaskPriorityConverterUtil;
 import com.example.linfengwang.tasksreminder.list.TaskElement;
@@ -26,15 +30,14 @@ import com.xwray.groupie.Section;
 import org.threeten.bp.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import bolts.Task;
 import okhttp3.OkHttpClient;
 
 public class TaskActivity extends AppCompatActivity {
     public final static int TASK_REQUEST_CODE=123;
     public final static int DEFAULT_VALUE=-1;
     private GroupAdapter taskItemGroup;
-    private Section section;
+    private Section sectionTaskToday;
+    private Section sectionTaskAfter;
     private RecyclerView taskItemRecyclerView;
     private TaskActivityViewModel taskViewModel;
 
@@ -67,21 +70,30 @@ public class TaskActivity extends AppCompatActivity {
                         for(TaskItem taskItem :taskItems ){
                             taskList.add(taskItem);
                             taskElementList.add(new TaskElement(taskItem,this));
-                            section.update(taskElementList);
+                            sectionTaskToday.update(taskElementList);
                         }
                     }
                 );
+
+        //test section task for after tomorrow;
+        TaskItem test1 = new TaskItem("test1",
+                TaskPriority.HIGH,
+                OffsetDateTime.now(),
+                OffsetDateTime.now(),
+                TaskStatus.UNDONE);
+
+        TaskItem test2 = new TaskItem("test2",
+                TaskPriority.HIGH,
+                OffsetDateTime.now(),
+                OffsetDateTime.now(),
+                TaskStatus.UNDONE);
+        sectionTaskAfter.add(new TaskElement(test1,getApplicationContext()));
+        sectionTaskAfter.add(new TaskElement(test2,getApplicationContext()));
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view ->{
             startActivityForResult(new Intent(getApplicationContext(),
                     AddTaskActivity.class),TASK_REQUEST_CODE);
-                   // Toast.makeText(this,"add task",Toast.LENGTH_SHORT).show();
-                    /*
-                    for(TaskItem item : taskList){
-                       taskViewModel.deleteTask(item);
-                    }
-                    */
                 }
         );
     }
@@ -89,15 +101,31 @@ public class TaskActivity extends AppCompatActivity {
     private void configureMenu(){
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        if(getSupportActionBar() !=null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            //set image
+            Drawable sourceImage = getResources().getDrawable(R.drawable.ic_resume);
+            /*Bitmap bitmap =((BitmapDrawable)sourceImage).getBitmap();
+            Drawable changeSizeImage = new BitmapDrawable(getResources(),
+                    Bitmap.createScaledBitmap(bitmap, 35, 60, true));
+                    */
+            getSupportActionBar().setHomeAsUpIndicator(sourceImage);
+        }
+
     }
 
     private void initRecyclerView(){
         taskItemGroup = new GroupAdapter();
-        section = new Section();
-        section.setHeader(new TaskHeaderItem(getResources().getString(R.string.task_header_text)));
-        taskItemGroup.add(section);
+        sectionTaskToday = new Section();
+        sectionTaskAfter = new Section();
+
+        sectionTaskToday.setHeader(new TaskHeaderItem(getResources().getString(R.string.today_task_header)));
+        sectionTaskToday.setHideWhenEmpty(true);
+        sectionTaskAfter.setHeader(new TaskHeaderItem(getResources().getString(R.string.after_today_task_header)));
+        sectionTaskAfter.setHideWhenEmpty(true);
+        taskItemGroup.add(sectionTaskToday);
+        taskItemGroup.add(sectionTaskAfter);
 
         taskItemRecyclerView.setHasFixedSize(true);
         taskItemRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -153,9 +181,16 @@ public class TaskActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()){
+            case android.R.id.home:
+                startActivity(new Intent(this,TaskResumeActivity.class));
+                finish();
+                break;
+            case R.id.action_settings:
+                Toast.makeText(this,"en cours",Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
         }
 
         return super.onOptionsItemSelected(item);

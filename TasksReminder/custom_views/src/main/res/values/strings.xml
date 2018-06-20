@@ -5,4 +5,5 @@
     <string name="low">low</string>
     <string name="high">high</string>
     <string name="middle">middle</string>
+    <string name="add_task">Add</string>
 </resources>

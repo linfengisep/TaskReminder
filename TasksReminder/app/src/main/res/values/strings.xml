@@ -5,5 +5,6 @@
     <string name="valid">Valid</string>
     <string name="cancel">Cancel</string>
     <string name="yesterday">yesterday</string>
-    <string name="task_header_text">Your tasks are as follows:</string>
+    <string name="today_task_header">Today your tasks:</string>
+    <string name="after_today_task_header">Tomorrow or after your tasks:</string>
 </resources>
