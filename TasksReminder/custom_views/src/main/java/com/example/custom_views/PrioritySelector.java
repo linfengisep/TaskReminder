@@ -13,9 +13,9 @@ import android.widget.TextView;
  */
 
 public class PrioritySelector extends RelativeLayout{
-    private final int low=1;
-    private final int middle=2;
-    private final int high=3;
+    private static final int LOW=1;
+    private static final int MIDDLE=2;
+    private static final int HIGH=3;
 
     private ImageView plusBtn;
     private ImageView minusBtn;
@@ -62,14 +62,14 @@ public class PrioritySelector extends RelativeLayout{
 
     private void incrementValue() {
         currentPriorityValue = getPriorityValue(priorityValueView.getText().toString());
-        if(currentPriorityValue < high) {
+        if(currentPriorityValue < HIGH) {
             priorityValueView.setText(getPriorityString(currentPriorityValue + 1));
         }
     }
 
     private void decrementValue() {
         currentPriorityValue = getPriorityValue(priorityValueView.getText().toString());
-        if(currentPriorityValue > low) {
+        if(currentPriorityValue > LOW) {
             priorityValueView.setText(getPriorityString(currentPriorityValue - 1));
         }
     }
@@ -77,27 +77,23 @@ public class PrioritySelector extends RelativeLayout{
     public String getPriorityString(int level){
         String priorityLevel=null;
         switch (level){
-            case low:priorityLevel =getContext().getString(R.string.low);
+            case LOW:priorityLevel =getContext().getString(R.string.low);
             break;
-            case middle:priorityLevel =getContext().getString(R.string.middle);
+            case MIDDLE:priorityLevel =getContext().getString(R.string.middle);
             break;
-            case high:priorityLevel=getContext().getString(R.string.high);
+            case HIGH:priorityLevel=getContext().getString(R.string.high);
             default:break;
         }
         return priorityLevel;
     }
 
-    public String getPriorityString(){
-       return priorityValueView.getText().toString();
-    }
-
     public int getPriorityValue(String valueString){
         int levelPriority=0;
-        if(valueString.equals("low")){
+        if(valueString.toLowerCase().equals(getContext().getString(R.string.low))){
             levelPriority =1;
-        }else if(valueString.equals("middle")){
+        }else if(valueString.toLowerCase().equals(getContext().getString(R.string.middle))){
             levelPriority =2;
-        }else if(valueString.equals("high")){
+        }else if(valueString.toLowerCase().equals(getContext().getString(R.string.high))){
             levelPriority =3;
         }
         return levelPriority;
@@ -120,10 +116,10 @@ public class PrioritySelector extends RelativeLayout{
      */
     public void setValue(int newValue) {
         int value = newValue;
-        if(newValue < low) {
-            value = low;
-        } else if (newValue > high) {
-            value = high;
+        if(newValue < LOW) {
+            value = LOW;
+        } else if (newValue > HIGH) {
+            value = HIGH;
         }
         priorityValueView.setText(getPriorityString(value));
     }

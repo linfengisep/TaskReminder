@@ -106,10 +106,6 @@ public class TaskActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             //set image
             Drawable sourceImage = getResources().getDrawable(R.drawable.ic_resume);
-            /*Bitmap bitmap =((BitmapDrawable)sourceImage).getBitmap();
-            Drawable changeSizeImage = new BitmapDrawable(getResources(),
-                    Bitmap.createScaledBitmap(bitmap, 35, 60, true));
-                    */
             getSupportActionBar().setHomeAsUpIndicator(sourceImage);
         }
 
@@ -150,11 +146,11 @@ public class TaskActivity extends AppCompatActivity {
                     TaskItem item = new TaskItem(
                             0,
                             data.getStringExtra(AddTaskActivity.TASK_CONTENT),
-                            TaskPriorityConverterUtil.getTaskPriorityFromString(data.getStringExtra(AddTaskActivity.TASK_PRIORITY)),
+                            TaskPriorityConverterUtil.getTaskPriorityFromString(data.getIntExtra(AddTaskActivity.TASK_PRIORITY,0)),
                             OffsetDateTime.now(),
                             getOffsetTimeFromDate(mYear,mMonth,mDate,mHour,mMinute),
                             TaskStatus.UNDONE);
-                    taskViewModel.insertTask(item);
+                    //taskViewModel.insertTask(item);
                 }
             }
         } else {

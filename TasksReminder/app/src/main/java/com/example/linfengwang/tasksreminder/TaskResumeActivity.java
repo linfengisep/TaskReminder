@@ -5,6 +5,9 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +16,11 @@ import android.view.MenuItem;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TaskResumeActivity extends AppCompatActivity {
+    private static final int NUMBER_PAGES =2;
     private SimpleDraweeView taskPhoto;
     private ViewPager taskPager;
     @Override
@@ -38,7 +45,9 @@ public class TaskResumeActivity extends AppCompatActivity {
     }
 
     public void setUpViewPager(ViewPager viewPager){
-        //TODO add to adapter and two fragment here;
+        TaskResumeAdapter pagerAdapter = new TaskResumeAdapter(getSupportFragmentManager());
+        //TODO add two pagers here;
+        viewPager.setAdapter(pagerAdapter);
     }
 
     @Override
@@ -58,5 +67,33 @@ public class TaskResumeActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+
+    public class TaskResumeAdapter extends FragmentPagerAdapter {
+        public List<Fragment> fragmentList = new ArrayList<>();
+        public List<String> titleList = new ArrayList<>();
+        public TaskResumeAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return NUMBER_PAGES;
+        }
+        @Override
+        public CharSequence getPageTitle(int position){
+            return titleList.get(position);
+        }
+
+        private void loadFragment(Fragment fragment,String title){
+            fragmentList.add(fragment);
+            titleList.add(title);
+        }
     }
 }

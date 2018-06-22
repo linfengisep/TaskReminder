@@ -42,7 +42,7 @@ public class AddTaskActivity extends AppCompatActivity {
     private SharePreferenceManager sharePreferenceManager;
 
     private int mHour, mMinute,mDate,mMonth,mYear;
-    private String priority;
+    private int priority;
     private String taskContent;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class AddTaskActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-            priority = taskBinding.prioritySelector.getPriorityString();
+            priority = taskBinding.prioritySelector.getValue();
 
         // task content;
         taskBinding.editTaskContent.addTextChangedListener(new TextWatcher() {
@@ -82,15 +82,7 @@ public class AddTaskActivity extends AppCompatActivity {
         });
 
         taskBinding.submitButton.setOnClickListener(view ->{
-            //show words to users;
-
-            if(taskContent.isEmpty()){
-                Toast.makeText(this,"Add a task",Toast.LENGTH_SHORT
-                ).show();
-            }else {
-                Toast.makeText(this,"Task:"+taskContent+","+priority+"priority is saved",Toast.LENGTH_SHORT
-                ).show();
-            }
+            Toast.makeText(this,"Priority:=",Toast.LENGTH_SHORT).show();
             Intent taskIntent = new Intent(this,TaskActivity.class);
             taskIntent.putExtra(TASK_CONTENT,taskContent.trim());
             taskIntent.putExtra(TASK_PRIORITY,priority);
@@ -99,7 +91,6 @@ public class AddTaskActivity extends AppCompatActivity {
             taskIntent.putExtra(TASK_DEADLINE_DATE,mDate);
             taskIntent.putExtra(TASK_DEADLINE_HOUR,mHour);
             taskIntent.putExtra(TASK_DEADLINE_MINUTE,mMinute);
-
             setResult(Activity.RESULT_OK,taskIntent);
             finish();
         });
