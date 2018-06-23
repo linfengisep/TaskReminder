@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.linfengwang.tasksreminder.Fragment.TaskFinishedFragment;
+import com.example.linfengwang.tasksreminder.Fragment.TaskUnfinishedFragment;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ public class TaskResumeActivity extends AppCompatActivity {
     private static final int NUMBER_PAGES =2;
     private SimpleDraweeView taskPhoto;
     private ViewPager taskPager;
+    private TabLayout tabLayout;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,8 @@ public class TaskResumeActivity extends AppCompatActivity {
         taskPhoto = findViewById(R.id.task_photo);
         taskPager = findViewById(R.id.task_category_pager);
         setUpViewPager(taskPager);
+        tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(taskPager);
 
         taskPhoto.setImageURI(Uri.parse("https://images.chinahighlights.com/allpicture/2014/08/16f810e32fbd41a68de7eb57_298x207.jpg"));
 
@@ -46,7 +52,10 @@ public class TaskResumeActivity extends AppCompatActivity {
 
     public void setUpViewPager(ViewPager viewPager){
         TaskResumeAdapter pagerAdapter = new TaskResumeAdapter(getSupportFragmentManager());
-        //TODO add two pagers here;
+        TaskFinishedFragment finishedFragment = new TaskFinishedFragment();
+        pagerAdapter.loadFragment(finishedFragment,"Finished");
+        TaskUnfinishedFragment unfinishedFragment = new TaskUnfinishedFragment();
+        pagerAdapter.loadFragment(unfinishedFragment,"Task bank");
         viewPager.setAdapter(pagerAdapter);
     }
 

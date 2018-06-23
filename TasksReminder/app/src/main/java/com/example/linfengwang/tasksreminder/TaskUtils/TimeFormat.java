@@ -21,7 +21,7 @@ public final class TimeFormat {
         } else if (dayDifference == 1) {
             return context.getString(R.string.yesterday);
         } else if (dayDifference > 1 && dayDifference < 7) {
-            return new SimpleDateFormat("EEE", Locale.getDefault()).format(new Date(milliSecond));
+            return new SimpleDateFormat("EEEE", Locale.getDefault()).format(new Date(milliSecond));
         } else if (dayDifference >= 7) {
             return new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(milliSecond));
         } else {
