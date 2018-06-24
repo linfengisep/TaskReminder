@@ -25,7 +25,12 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.Section;
+
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.ZoneOffset;
+
 import java.util.ArrayList;
 import java.util.List;
 import okhttp3.OkHttpClient;
@@ -148,7 +153,7 @@ public class TaskActivity extends AppCompatActivity {
                             OffsetDateTime.now(),
                             getOffsetTimeFromDate(mYear,mMonth,mDate,mHour,mMinute),
                             TaskStatus.UNDONE);
-                    //taskViewModel.insertTask(item);
+                    taskViewModel.insertTask(item);
                 }
             }
         } else {
@@ -157,13 +162,7 @@ public class TaskActivity extends AppCompatActivity {
     }
 
     private OffsetDateTime getOffsetTimeFromDate(int mYear,int mMonth,int mDate,int mHour,int mMinute){
-        OffsetDateTime deadline = OffsetDateTime.now();
-        deadline.withYear(mYear);
-        deadline.withMonth(mMonth);
-        deadline.withDayOfMonth(mDate);
-        deadline.withHour(mHour);
-        deadline.withMinute(mMinute);
-        return deadline;
+         return OffsetDateTime.of(mYear,mMonth,mDate,mHour,mMinute,0,0, ZoneOffset.UTC);
     }
 
     @Override

@@ -1,13 +1,13 @@
 package com.example.linfengwang.tasksreminder.list;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
 import com.example.database.Entity.TaskItem;
-import com.example.database.TaskPriority;
 import com.example.database.converters.TaskPriorityConverter;
 import com.example.linfengwang.tasksreminder.R;
 import com.example.linfengwang.tasksreminder.TaskUtils.TimeFormat;
@@ -39,6 +39,10 @@ public class TaskElement extends Item<TaskElement.TaskElementViewHolder> {
                 ))
         ));
         viewHolder.setTaskIcon(taskItem.getTaskContent().substring(0,1));
+
+      if(TimeFormat.checkTimeOutOfDate(taskItem.getCreationDate().toEpochSecond()*1000)){
+          viewHolder.setBackgroundColor(Color.parseColor("#F9E79F"));
+      }
     }
 
     @Override
@@ -66,12 +70,14 @@ public class TaskElement extends Item<TaskElement.TaskElementViewHolder> {
 
     class TaskElementViewHolder extends ViewHolder{
          AppCompatTextView taskIcon,taskTitle,taskSubtitle,taskPriority;
+         View view;
         TaskElementViewHolder(View rootView){
             super(rootView);
             taskIcon = rootView.findViewById(R.id.task_item_icon);
             taskTitle = rootView.findViewById(R.id.task_item_title);
             taskSubtitle = rootView.findViewById(R.id.task_item_subtitle);
             taskPriority = rootView.findViewById(R.id.task_item_priority);
+            view = rootView;
         }
 
         private void setTaskIcon(String taskLetter){
@@ -89,5 +95,6 @@ public class TaskElement extends Item<TaskElement.TaskElementViewHolder> {
         private void setTaskIconColor(int color){
             taskIcon.setTextColor(color);
         }
+        private void setBackgroundColor(int color){view.setBackgroundColor(color);}
     }
 }

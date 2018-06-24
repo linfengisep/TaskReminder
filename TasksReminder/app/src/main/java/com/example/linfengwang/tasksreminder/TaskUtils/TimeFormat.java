@@ -13,28 +13,31 @@ public final class TimeFormat {
     static long currentTime = System.currentTimeMillis();
     private TimeFormat() {
     }
-
     public static String formatTime(Context context, long milliSecond) {
         long dayDifference = compareDifference(milliSecond, currentTime);
+        if(currentTime > milliSecond){
+            return new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(milliSecond));
+        }
+
         if (dayDifference == 0) {
-            return new SimpleDateFormat("hh:mm", Locale.getDefault()).format(new Date(milliSecond));
+            return new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date(milliSecond));
         } else if (dayDifference == 1) {
-            return context.getString(R.string.yesterday);
+            return context.getString(R.string.tomorrow);
         } else if (dayDifference > 1 && dayDifference < 7) {
             return new SimpleDateFormat("EEEE", Locale.getDefault()).format(new Date(milliSecond));
         } else if (dayDifference >= 7) {
             return new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(milliSecond));
-        } else {
+        } else{
             return "error";
         }
     }
 
+    public static boolean checkTimeOutOfDate(long targetTime){
+        return targetTime<currentTime;
+    }
+
     private static long compareDifference(long targetTime, long currentTime) {
-        if(targetTime < currentTime){
-            return getNumberOfDayFromEpoch(currentTime) - getNumberOfDayFromEpoch(targetTime);
-        }else {
             return getNumberOfDayFromEpoch(targetTime)- getNumberOfDayFromEpoch(currentTime);
-        }
     }
 
     private static long getNumberOfDayFromEpoch(long time) {
@@ -50,7 +53,7 @@ public final class TimeFormat {
         if(dayDifference == 0){
             return new SimpleDateFormat("hh:mm", Locale.getDefault()).format(new Date(milliSecondInFuture));
         } else if (dayDifference == 1) {
-            return context.getString(R.string.yesterday);
+            return context.getString(R.string.tomorrow);
         } else if (dayDifference > 1 && dayDifference < 7) {
             return new SimpleDateFormat("EEE", Locale.getDefault()).format(new Date(milliSecondInFuture));
         } else if (dayDifference >= 7) {

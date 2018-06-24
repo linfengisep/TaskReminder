@@ -64,8 +64,6 @@ public class AddTaskActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-            priority = taskBinding.prioritySelector.getValue();
-
         // task content;
         taskBinding.editTaskContent.addTextChangedListener(new TextWatcher() {
             @Override
@@ -82,7 +80,8 @@ public class AddTaskActivity extends AppCompatActivity {
         });
 
         taskBinding.submitButton.setOnClickListener(view ->{
-            Toast.makeText(this,"Priority:=",Toast.LENGTH_SHORT).show();
+            priority = taskBinding.prioritySelector.getValue();
+            //Toast.makeText(this,"Priority:="+priority,Toast.LENGTH_SHORT).show();
             Intent taskIntent = new Intent(this,TaskActivity.class);
             taskIntent.putExtra(TASK_CONTENT,taskContent.trim());
             taskIntent.putExtra(TASK_PRIORITY,priority);
@@ -127,29 +126,21 @@ public class AddTaskActivity extends AppCompatActivity {
         positiveBtn = datePickerDialog.getActionButton(DialogAction.POSITIVE);
         negativeBtn = datePickerDialog.getActionButton(DialogAction.NEGATIVE);
 
-        positiveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        positiveBtn.setOnClickListener(v->{
                 if(datePickerDialog.getCustomView() !=null){
                     datePicker =datePickerDialog.getCustomView().findViewById(R.id.dialog_date_picker);
                     if(datePicker !=null){
                         mDate= datePicker.getDayOfMonth();
-                        mMonth = datePicker.getMonth();
+                        mMonth = datePicker.getMonth()+1;
                         mYear = datePicker.getYear();
-
+                        //Toast.makeText(getApplicationContext(),"month:="+mMonth,Toast.LENGTH_SHORT).show();
                     }
                 }
                 datePickerDialog.dismiss();
                 taskBinding.datePicker.setText(String.format(Locale.getDefault(),"%d/%d/%d",mDate,mMonth,mYear));
-            }
-        });
+            });
 
-        negativeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePickerDialog.dismiss();
-            }
-        });
+        negativeBtn.setOnClickListener(v-> datePickerDialog.dismiss());
 
     }
 

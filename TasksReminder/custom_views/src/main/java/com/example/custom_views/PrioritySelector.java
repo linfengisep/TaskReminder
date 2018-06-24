@@ -63,14 +63,14 @@ public class PrioritySelector extends RelativeLayout{
     private void incrementValue() {
         currentPriorityValue = getPriorityValue(priorityValueView.getText().toString());
         if(currentPriorityValue < HIGH) {
-            priorityValueView.setText(getPriorityString(currentPriorityValue + 1));
+            priorityValueView.setText(getPriorityString(++currentPriorityValue));
         }
     }
 
     private void decrementValue() {
         currentPriorityValue = getPriorityValue(priorityValueView.getText().toString());
         if(currentPriorityValue > LOW) {
-            priorityValueView.setText(getPriorityString(currentPriorityValue - 1));
+            priorityValueView.setText(getPriorityString(--currentPriorityValue));
         }
     }
 

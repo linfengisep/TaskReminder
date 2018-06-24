@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import com.example.custom_views.TaskItemView;
@@ -73,9 +74,9 @@ public class TaskFinishedFragment extends Fragment {
     }
 
     public class TaskFinishAdapter extends RecyclerView.Adapter<TaskFinishAdapter.FinishedTaskViewHolder>{
-        public List<TaskItem> taskList;
+        List<TaskItem> taskList;
 
-        public TaskFinishAdapter(List<TaskItem> taskList){
+        TaskFinishAdapter(List<TaskItem> taskList){
             this.taskList =taskList;
         }
 
@@ -95,7 +96,7 @@ public class TaskFinishedFragment extends Fragment {
             return taskList.size();
         }
 
-        public class FinishedTaskViewHolder extends RecyclerView.ViewHolder{
+        class FinishedTaskViewHolder extends RecyclerView.ViewHolder{
             private AppCompatImageView icon;
             private AppCompatTextView taskTitle;
             private AppCompatTextView taskSubTitle;
