@@ -21,7 +21,7 @@
                 android:id="@+id/profile_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="add new item"
+                android:text="@string/add_new_item"
                 android:textColor="@color/light_yellow"
                 android:textSize="20sp"
                 android:gravity="center_horizontal"

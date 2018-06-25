@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tasks Reminder</string>
+    <string name="action_settings">Réglages</string>
+    <string name="time_picker">Choisir une date</string>
+    <string name="valid">Valider</string>
+    <string name="cancel">Annuler</string>
+    <string name="tomorrow">demain</string>
+    <string name="today_task_header">Mes tâche d\'aujourd\'hui:</string>
+    <string name="after_today_task_header">Mes tâches ultérieur:</string>
+    <string name="task_finished">Tâches terminées</string>
+    <string name="task_inbox">Tâches bancaires</string>
+    <string name="task_review">Récapitulatif</string>
+    <string name="add_new_item">Ajouter tâche</string>
+</resources>

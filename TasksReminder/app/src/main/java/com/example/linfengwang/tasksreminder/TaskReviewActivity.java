@@ -16,13 +16,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.linfengwang.tasksreminder.Fragment.TaskFinishedFragment;
-import com.example.linfengwang.tasksreminder.Fragment.TaskUnfinishedFragment;
+import com.example.linfengwang.tasksreminder.Fragment.TaskInboxFragment;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskResumeActivity extends AppCompatActivity {
+public class TaskReviewActivity extends AppCompatActivity {
     private static final int NUMBER_PAGES =2;
     private SimpleDraweeView taskPhoto;
     private ViewPager taskPager;
@@ -30,15 +30,13 @@ public class TaskResumeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.task_resume_layout);
+        setContentView(R.layout.task_review_layout);
         taskPhoto = findViewById(R.id.task_photo);
         taskPager = findViewById(R.id.task_category_pager);
         setUpViewPager(taskPager);
         tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(taskPager);
-
         taskPhoto.setImageURI(Uri.parse("https://images.chinahighlights.com/allpicture/2014/08/16f810e32fbd41a68de7eb57_298x207.jpg"));
-
         //back button;
         Toolbar toolbar = findViewById(R.id.resume_task_toolbar);
         setSupportActionBar(toolbar);
@@ -53,9 +51,9 @@ public class TaskResumeActivity extends AppCompatActivity {
     public void setUpViewPager(ViewPager viewPager){
         TaskResumeAdapter pagerAdapter = new TaskResumeAdapter(getSupportFragmentManager());
         TaskFinishedFragment finishedFragment = new TaskFinishedFragment();
-        pagerAdapter.loadFragment(finishedFragment,"Finished");
-        TaskUnfinishedFragment unfinishedFragment = new TaskUnfinishedFragment();
-        pagerAdapter.loadFragment(unfinishedFragment,"Task bank");
+        pagerAdapter.loadFragment(finishedFragment,getResources().getString(R.string.task_finished));
+        TaskInboxFragment unfinishedFragment = new TaskInboxFragment();
+        pagerAdapter.loadFragment(unfinishedFragment,getResources().getString(R.string.task_inbox));
         viewPager.setAdapter(pagerAdapter);
     }
 
@@ -73,7 +71,6 @@ public class TaskResumeActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }

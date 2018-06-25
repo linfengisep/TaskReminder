@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vues personnalisées</string>
+    <string name="valueSelector_label">Priorité</string>
+    <string name="valueBarLabel">Valeur choisi</string>
+    <string name="low">Bas</string>
+    <string name="high">élevé</string>
+    <string name="middle">moyen</string>
+    <string name="add_task">Ajouter</string>
+</resources>

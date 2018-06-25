@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddTaskActivity"/>
-        <activity android:name=".TaskResumeActivity"/>
+        <activity android:name=".TaskReviewActivity"/>
     </application>
 
 </manifest>

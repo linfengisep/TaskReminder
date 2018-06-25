@@ -26,8 +26,6 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.Section;
 
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.ZoneOffset;
 
@@ -57,7 +55,6 @@ public class TaskActivity extends AppCompatActivity {
         new OkHttpClient.Builder()
                 .addNetworkInterceptor(new StethoInterceptor())
                 .build();
-
 
         setContentView(R.layout.activity_main);
         taskItemRecyclerView = findViewById(R.id.task_item_recycler_view);
@@ -176,7 +173,7 @@ public class TaskActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                startActivity(new Intent(this,TaskResumeActivity.class));
+                startActivity(new Intent(this,TaskReviewActivity.class));
                 finish();
                 break;
             case R.id.action_settings:

@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class TaskUnfinishedFragment extends Fragment {
+public class TaskInboxFragment extends Fragment {
     private RecyclerView unfinishedTaskRecyclerView;
     private List<TaskItem> taskList = new ArrayList<>();
     @Override

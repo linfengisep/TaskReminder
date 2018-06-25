@@ -7,4 +7,8 @@
     <string name="tomorrow">tomorrow</string>
     <string name="today_task_header">Today your tasks:</string>
     <string name="after_today_task_header">Tomorrow or after your tasks:</string>
+    <string name="task_finished">Finished</string>
+    <string name="task_inbox">Task inbox</string>
+    <string name="task_review">Task Review</string>
+    <string name="add_new_item">Add task</string>
 </resources>
