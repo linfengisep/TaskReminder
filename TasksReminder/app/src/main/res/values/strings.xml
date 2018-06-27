@@ -11,4 +11,5 @@
     <string name="task_inbox">Task inbox</string>
     <string name="task_review">Task Review</string>
     <string name="add_new_item">Add task</string>
+    <string name="task_list">Task List</string>
 </resources>

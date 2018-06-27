@@ -66,6 +66,12 @@ public class TaskFinishedFragment extends Fragment {
                 OffsetDateTime.now(),
                 TaskStatus.UNDONE);
         taskList.add(test2);
+        TaskItem test3 = new TaskItem("test3",
+                TaskPriority.HIGH,
+                OffsetDateTime.now(),
+                OffsetDateTime.now(),
+                TaskStatus.UNDONE);
+        taskList.add(test3);
     }
 
     private void passDataToAdapter(List<TaskItem> taskList){

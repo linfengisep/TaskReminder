@@ -9,6 +9,8 @@ import com.example.database.TaskStatus;
 
 import org.threeten.bp.OffsetDateTime;
 
+import java.util.Objects;
+
 
 @Entity(indices = {
         @Index(value = {"taskContent"}),
@@ -19,26 +21,26 @@ import org.threeten.bp.OffsetDateTime;
     private String taskContent;
     private TaskPriority taskPriority;
     private OffsetDateTime taskDeadline;
-    private OffsetDateTime creationDate;
+    private OffsetDateTime taskCreationDate;
     private TaskStatus taskStatus;
 
     public TaskItem(String taskContent,
                     TaskPriority taskPriority,
-                    OffsetDateTime creationDate,
+                    OffsetDateTime taskCreationDate,
                     OffsetDateTime taskDeadline,
                     TaskStatus taskStatus) {
-        this(0,taskContent,taskPriority,creationDate,taskDeadline,taskStatus);
+        this(0,taskContent,taskPriority,taskCreationDate,taskDeadline,taskStatus);
     }
 
     public TaskItem(int taskId, String taskContent,
                     TaskPriority taskPriority,
-                    OffsetDateTime creationDate,
+                    OffsetDateTime taskCreationDate,
                     OffsetDateTime taskDeadline,
                     TaskStatus taskStatus) {
         this.id = taskId;
         this.taskContent = taskContent;
         this.taskPriority = taskPriority;
-        this.creationDate = creationDate;
+        this.taskCreationDate = taskCreationDate;
         this.taskDeadline = taskDeadline;
         this.taskStatus = taskStatus;
     }
@@ -55,19 +57,59 @@ import org.threeten.bp.OffsetDateTime;
         return taskContent;
     }
 
+    public void setTaskContent(String taskContent) {
+        this.taskContent = taskContent;
+    }
+
     public TaskPriority getTaskPriority() {
         return taskPriority;
     }
 
-    public OffsetDateTime getCreationDate() {
-        return creationDate;
+    public void setTaskPriority(TaskPriority taskPriority) {
+        this.taskPriority = taskPriority;
     }
 
     public OffsetDateTime getTaskDeadline() {
         return taskDeadline;
     }
 
+    public void setTaskDeadline(OffsetDateTime taskDeadline) {
+        this.taskDeadline = taskDeadline;
+    }
+
+    public OffsetDateTime getTaskCreationDate() {
+        return taskCreationDate;
+    }
+
+    public void setTaskCreationDate(OffsetDateTime taskCreationDate) {
+        this.taskCreationDate = taskCreationDate;
+    }
+
     public TaskStatus getTaskStatus() {
         return taskStatus;
+    }
+
+    public void setTaskStatus(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TaskItem taskItem = (TaskItem) o;
+        return id == taskItem.id && taskContent.equals( taskItem.taskContent) && taskPriority == taskItem
+                .taskPriority && taskDeadline == taskItem.taskDeadline && taskCreationDate == taskItem.taskCreationDate &&
+                taskStatus == taskItem.taskStatus;
+    }
+
+    @Override public int hashCode() {
+        int result = id;
+        result = 31 * result + taskContent.hashCode();
+        result = 31 * result + taskPriority.hashCode();
+        result = 31 * result + taskDeadline.hashCode();
+        result = 31 * result + taskCreationDate.hashCode();
+        result = 31 * result + taskStatus.hashCode();
+        return result;
     }
 }

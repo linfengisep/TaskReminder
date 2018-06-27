@@ -23,7 +23,7 @@
                 android:id="@+id/main_page_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Task list"
+                android:text="@string/task_list"
                 android:textSize="20sp"
                 android:gravity="center_horizontal"
                 android:layout_gravity="center"

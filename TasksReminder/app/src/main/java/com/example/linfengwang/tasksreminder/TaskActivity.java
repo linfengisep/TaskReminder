@@ -17,6 +17,7 @@ import com.example.database.Entity.TaskItem;
 import com.example.database.TaskPriority;
 import com.example.database.TaskStatus;
 import com.example.linfengwang.tasksreminder.TaskUtils.TaskPriorityConverterUtil;
+import com.example.linfengwang.tasksreminder.TaskUtils.TimeFormat;
 import com.example.linfengwang.tasksreminder.list.TaskElement;
 import com.example.linfengwang.tasksreminder.list.TaskHeaderItem;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -41,9 +42,6 @@ public class TaskActivity extends AppCompatActivity {
     private Section sectionTaskAfter;
     private RecyclerView taskItemRecyclerView;
     private TaskActivityViewModel taskViewModel;
-
-    private List<TaskItem> taskList = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,29 +64,20 @@ public class TaskActivity extends AppCompatActivity {
         taskViewModel = ViewModelProviders.of(this).get(TaskActivityViewModel.class);
         taskViewModel.getAllTask()
                 .observe(this, (taskItems)-> {
-                            List<TaskElement> taskElementList = new ArrayList<>();
                         for(TaskItem taskItem :taskItems ){
-                            taskList.add(taskItem);
-                            taskElementList.add(new TaskElement(taskItem,this));
-                            sectionTaskToday.update(taskElementList);
+                            long rightNow = System.currentTimeMillis();
+                            long timeOfTask = taskItem.getTaskDeadline().toEpochSecond()*1000;
+                            long diff = TimeFormat.compareDifference(timeOfTask,rightNow);
+                            if(diff==0){
+                                sectionTaskToday.add(new TaskElement(taskItem,this));
+                            } else if(TimeFormat.compareDifference(taskItem.getTaskDeadline().toEpochSecond()*1000,rightNow)>0){
+                                sectionTaskAfter.add(new TaskElement(taskItem,this));
+                            } else {
+                                //add those task to the inbox;
+                            }
                         }
                     }
                 );
-
-        //test section task for after tomorrow;
-        TaskItem test1 = new TaskItem("test1",
-                TaskPriority.HIGH,
-                OffsetDateTime.now(),
-                OffsetDateTime.now(),
-                TaskStatus.UNDONE);
-
-        TaskItem test2 = new TaskItem("test2",
-                TaskPriority.HIGH,
-                OffsetDateTime.now(),
-                OffsetDateTime.now(),
-                TaskStatus.UNDONE);
-        sectionTaskAfter.add(new TaskElement(test1,getApplicationContext()));
-        sectionTaskAfter.add(new TaskElement(test2,getApplicationContext()));
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view ->{

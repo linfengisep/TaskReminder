@@ -9,7 +9,8 @@
     <string name="today_task_header">Mes tâche d\'aujourd\'hui:</string>
     <string name="after_today_task_header">Mes tâches ultérieur:</string>
     <string name="task_finished">Tâches terminées</string>
-    <string name="task_inbox">Tâches bancaires</string>
+    <string name="task_inbox">Banque tâches</string>
     <string name="task_review">Récapitulatif</string>
     <string name="add_new_item">Ajouter tâche</string>
+    <string name="task_list">Liste tâche</string>
 </resources>

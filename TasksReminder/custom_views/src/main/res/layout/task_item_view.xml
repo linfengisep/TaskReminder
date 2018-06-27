@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="365dp"
+    android:layout_height="wrap_content"
+    android:background="@color/light_green"
     >
 
     <android.support.v7.widget.AppCompatImageView
@@ -21,8 +24,6 @@
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/task_item_title"
         android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.65"
-        app:layout_constraintWidth_default="percent"
         android:includeFontPadding="false"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/middle_separator"
@@ -88,4 +89,4 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         />
-</merge>
+</android.support.constraint.ConstraintLayout>
