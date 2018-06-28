@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.util.ArrayMap;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,6 +44,8 @@ public class TaskActivity extends AppCompatActivity {
     private Section sectionTaskAfter;
     private RecyclerView taskItemRecyclerView;
     private TaskActivityViewModel taskViewModel;
+    private ArrayMap<Integer,TaskItem> taskItemArrayMap = new ArrayMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,13 +69,19 @@ public class TaskActivity extends AppCompatActivity {
         taskViewModel.getAllTask()
                 .observe(this, (taskItems)-> {
                         for(TaskItem taskItem :taskItems ){
-                            long rightNow = System.currentTimeMillis();
-                            long timeOfTask = taskItem.getTaskDeadline().toEpochSecond()*1000;
-                            long diff = TimeFormat.compareDifference(timeOfTask,rightNow);
+                            long diff = TimeFormat.compareDifference(taskItem.getTaskDeadline().toEpochSecond()*1000,
+                                    System.currentTimeMillis());
                             if(diff==0){
-                                sectionTaskToday.add(new TaskElement(taskItem,this));
-                            } else if(TimeFormat.compareDifference(taskItem.getTaskDeadline().toEpochSecond()*1000,rightNow)>0){
-                                sectionTaskAfter.add(new TaskElement(taskItem,this));
+                                if(!taskItemArrayMap.containsKey(taskItem.getId())){
+                                    sectionTaskToday.add(new TaskElement(taskItem,this));
+                                    taskItemArrayMap.put(taskItem.getId(),taskItem);
+                                }
+                            } else if(TimeFormat.compareDifference(taskItem.getTaskDeadline().toEpochSecond()*1000,
+                                    System.currentTimeMillis())>0){
+                                if(!taskItemArrayMap.containsKey(taskItem.getId())){
+                                    sectionTaskAfter.add(new TaskElement(taskItem,this));
+                                    taskItemArrayMap.put(taskItem.getId(),taskItem);
+                                }
                             } else {
                                 //add those task to the inbox;
                             }
@@ -101,14 +111,14 @@ public class TaskActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
-        taskItemGroup = new GroupAdapter();
         sectionTaskToday = new Section();
         sectionTaskAfter = new Section();
-
         sectionTaskToday.setHeader(new TaskHeaderItem(getResources().getString(R.string.today_task_header)));
-        sectionTaskToday.setHideWhenEmpty(true);
         sectionTaskAfter.setHeader(new TaskHeaderItem(getResources().getString(R.string.after_today_task_header)));
+        sectionTaskToday.setHideWhenEmpty(true);
         sectionTaskAfter.setHideWhenEmpty(true);
+
+        taskItemGroup = new GroupAdapter();
         taskItemGroup.add(sectionTaskToday);
         taskItemGroup.add(sectionTaskAfter);
 
@@ -117,7 +127,10 @@ public class TaskActivity extends AppCompatActivity {
         taskItemRecyclerView.setAdapter(taskItemGroup);
 
         taskItemGroup.setOnItemClickListener(
-                (item,view) -> Toast.makeText(this,"item clicked",Toast.LENGTH_SHORT).show()
+                (item,view) -> {
+                    //Toast.makeText(this,"Clicked:"+item.toString(),Toast.LENGTH_SHORT).show();
+                    view.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.light_blue));
+                }
         );
     }
 
@@ -148,7 +161,7 @@ public class TaskActivity extends AppCompatActivity {
     }
 
     private OffsetDateTime getOffsetTimeFromDate(int mYear,int mMonth,int mDate,int mHour,int mMinute){
-         return OffsetDateTime.of(mYear,mMonth,mDate,mHour,mMinute,0,0, ZoneOffset.UTC);
+         return OffsetDateTime.of(mYear,mMonth,mDate,mHour,mMinute,0,0, ZoneOffset.of("Europe/Paris"));
     }
 
     @Override

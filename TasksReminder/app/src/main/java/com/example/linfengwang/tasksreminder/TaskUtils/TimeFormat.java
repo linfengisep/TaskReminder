@@ -20,7 +20,7 @@ public final class TimeFormat {
         }
 
         if (dayDifference == 0) {
-            return new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date(milliSecond));
+            return new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date(milliSecond-2*60*60*1000));
         } else if (dayDifference == 1) {
             return context.getString(R.string.tomorrow);
         } else if (dayDifference > 1 && dayDifference < 7) {

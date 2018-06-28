@@ -40,7 +40,7 @@ public class TaskElement extends Item<TaskElement.TaskElementViewHolder> {
         ));
         viewHolder.setTaskIcon(taskItem.getTaskContent().substring(0,1));
 
-      if(TimeFormat.checkTimeOutOfDate(taskItem.getCreationDate().toEpochSecond()*1000)){
+      if(TimeFormat.checkTimeOutOfDate(taskItem.getTaskCreationDate().toEpochSecond()*1000)){
           viewHolder.setBackgroundColor(Color.parseColor("#cccccc"));
       }
     }
@@ -61,7 +61,6 @@ public class TaskElement extends Item<TaskElement.TaskElementViewHolder> {
             case 3:
                 holder.setTaskIconColor(R.color.colorPrimaryDark);
                 return context.getString(R.string.high);
-
             default:
                 holder.setTaskIconColor(R.color.colorAccent);
                 return context.getString(R.string.low);
@@ -79,7 +78,6 @@ public class TaskElement extends Item<TaskElement.TaskElementViewHolder> {
             taskPriority = rootView.findViewById(R.id.task_item_priority);
             view = rootView;
         }
-
         private void setTaskIcon(String taskLetter){
             taskIcon.setText(taskLetter);
         }

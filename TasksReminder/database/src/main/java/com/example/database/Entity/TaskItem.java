@@ -93,17 +93,23 @@ import java.util.Objects;
         this.taskStatus = taskStatus;
     }
 
-    @Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         TaskItem taskItem = (TaskItem) o;
-        return id == taskItem.id && taskContent.equals( taskItem.taskContent) && taskPriority == taskItem
-                .taskPriority && taskDeadline == taskItem.taskDeadline && taskCreationDate == taskItem.taskCreationDate &&
-                taskStatus == taskItem.taskStatus;
+
+        if (id != taskItem.id) return false;
+        if (!taskContent.equals(taskItem.taskContent)) return false;
+        if (taskPriority != taskItem.taskPriority) return false;
+        if (!taskDeadline.equals(taskItem.taskDeadline)) return false;
+        if (!taskCreationDate.equals(taskItem.taskCreationDate)) return false;
+        return taskStatus == taskItem.taskStatus;
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         int result = id;
         result = 31 * result + taskContent.hashCode();
         result = 31 * result + taskPriority.hashCode();
