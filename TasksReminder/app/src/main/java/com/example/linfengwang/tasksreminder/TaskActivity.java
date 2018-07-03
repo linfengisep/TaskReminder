@@ -2,6 +2,7 @@ package com.example.linfengwang.tasksreminder;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,11 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.database.Entity.TaskItem;
+import com.example.linfengwang.tasksreminder.SwipeControl.SwipeController;
+import com.example.linfengwang.tasksreminder.SwipeControl.SwipeControllerActions;
 import com.example.linfengwang.tasksreminder.TaskUtils.TaskPriorityConverterUtil;
 import com.example.linfengwang.tasksreminder.TaskUtils.TimeFormat;
 import com.example.linfengwang.tasksreminder.list.EmptyElement;
@@ -42,6 +46,8 @@ public class TaskActivity extends AppCompatActivity {
     private RecyclerView taskItemRecyclerView;
     private TaskActivityViewModel taskViewModel;
     private ArrayMap<Integer,TaskItem> taskItemArrayMap = new ArrayMap<>();
+
+    private SwipeController swipeController=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +114,8 @@ public class TaskActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView(){
+        addSwipeControl();
+
         sectionTaskToday = new Section();
         sectionTaskAfter = new Section();
         sectionTaskToday.setHeader(new TaskHeaderItem(getResources().getString(R.string.today_task_header)));
@@ -132,6 +140,33 @@ public class TaskActivity extends AppCompatActivity {
                     view.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.light_blue));
                 }
         );
+    }
+
+    private void addSwipeControl(){
+        swipeController = new SwipeController(new SwipeControllerActions() {
+            @Override
+            public void onLeftClicked(int position) {
+                super.onLeftClicked(position);
+                Toast.makeText(getApplicationContext(),"left clicked",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRightClicked(int position) {
+                super.onRightClicked(position);
+                Toast.makeText(getApplicationContext(),"right clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
+        itemTouchhelper.attachToRecyclerView(taskItemRecyclerView);
+
+        taskItemRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                swipeController.onDraw(c);
+            }
+        });
     }
 
     public void onActivityResult(int requestCode,int resultCode,Intent data){

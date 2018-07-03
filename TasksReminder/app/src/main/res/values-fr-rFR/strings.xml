@@ -15,4 +15,6 @@
     <string name="task_list">Liste tâche</string>
     <string name="today_no_task_reminder">Liste tâche est vide d\'aujoud\'hui</string>
     <string name="tomorrow_no_task_reminder">Liste tâche est vide demain</string>
+    <string name="task_finish">Terminer</string>
+    <string name="task_to_inbox">Suspendre</string>
 </resources>
