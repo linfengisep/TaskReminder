@@ -12,4 +12,6 @@
     <string name="task_review">Task Review</string>
     <string name="add_new_item">Add task</string>
     <string name="task_list">Task List</string>
+    <string name="today_no_task_reminder">Today\'s task list is empty</string>
+    <string name="tomorrow_no_task_reminder">Tomorrow\'s task list is empty</string>
 </resources>

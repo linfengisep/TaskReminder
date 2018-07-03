@@ -38,7 +38,7 @@ public class TaskElement extends Item<TaskElement.TaskElementViewHolder> {
                         TaskPriorityConverter.toInteger(taskItem.getTaskPriority()
                 ))
         ));
-        viewHolder.setTaskIcon(taskItem.getTaskContent().substring(0,1));
+        viewHolder.setTaskIcon(taskItem.getTaskContent().substring(0,1).toUpperCase());
 
       if(TimeFormat.checkTimeOutOfDate(taskItem.getTaskCreationDate().toEpochSecond()*1000)){
           viewHolder.setBackgroundColor(Color.parseColor("#cccccc"));

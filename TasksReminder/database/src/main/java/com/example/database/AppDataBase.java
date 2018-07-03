@@ -68,7 +68,7 @@ public abstract class AppDataBase extends RoomDatabase{
                     TaskPriority.MIDDLE,
                     OffsetDateTime.now(),
                     OffsetDateTime.now(),
-                    TaskStatus.UNDONE)
+                    TaskItem.TaskStatus.UNDONE)
             );
             return null;
         }

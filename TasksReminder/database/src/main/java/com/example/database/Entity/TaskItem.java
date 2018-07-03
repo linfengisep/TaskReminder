@@ -5,11 +5,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.example.database.TaskPriority;
-import com.example.database.TaskStatus;
 
 import org.threeten.bp.OffsetDateTime;
-
-import java.util.Objects;
 
 
 @Entity(indices = {
@@ -117,5 +114,11 @@ import java.util.Objects;
         result = 31 * result + taskCreationDate.hashCode();
         result = 31 * result + taskStatus.hashCode();
         return result;
+    }
+
+    public enum TaskStatus {
+        UNDONE,
+        DONE,
+        STANDBY
     }
 }

@@ -77,9 +77,9 @@ public class TaskReviewActivity extends AppCompatActivity {
 
 
     public class TaskResumeAdapter extends FragmentPagerAdapter {
-        public List<Fragment> fragmentList = new ArrayList<>();
-        public List<String> titleList = new ArrayList<>();
-        public TaskResumeAdapter(FragmentManager fm) {
+         List<Fragment> fragmentList = new ArrayList<>();
+         List<String> titleList = new ArrayList<>();
+         TaskResumeAdapter(FragmentManager fm) {
             super(fm);
         }
 

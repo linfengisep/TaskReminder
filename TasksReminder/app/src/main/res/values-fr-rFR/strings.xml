@@ -13,4 +13,6 @@
     <string name="task_review">Récapitulatif</string>
     <string name="add_new_item">Ajouter tâche</string>
     <string name="task_list">Liste tâche</string>
+    <string name="today_no_task_reminder">Liste tâche est vide d\'aujoud\'hui</string>
+    <string name="tomorrow_no_task_reminder">Liste tâche est vide demain</string>
 </resources>

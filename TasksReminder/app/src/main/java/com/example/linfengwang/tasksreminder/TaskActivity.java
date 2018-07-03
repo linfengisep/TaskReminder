@@ -16,10 +16,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.database.Entity.TaskItem;
-import com.example.database.TaskPriority;
-import com.example.database.TaskStatus;
 import com.example.linfengwang.tasksreminder.TaskUtils.TaskPriorityConverterUtil;
 import com.example.linfengwang.tasksreminder.TaskUtils.TimeFormat;
+import com.example.linfengwang.tasksreminder.list.EmptyElement;
 import com.example.linfengwang.tasksreminder.list.TaskElement;
 import com.example.linfengwang.tasksreminder.list.TaskHeaderItem;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -29,11 +28,9 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.Section;
 
+import org.threeten.bp.Instant;
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.ZoneOffset;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.threeten.bp.ZoneId;
 import okhttp3.OkHttpClient;
 
 public class TaskActivity extends AppCompatActivity {
@@ -117,6 +114,9 @@ public class TaskActivity extends AppCompatActivity {
         sectionTaskAfter.setHeader(new TaskHeaderItem(getResources().getString(R.string.after_today_task_header)));
         sectionTaskToday.setHideWhenEmpty(true);
         sectionTaskAfter.setHideWhenEmpty(true);
+        //show this section when empty;
+        sectionTaskToday.setPlaceholder(new EmptyElement(getResources().getString(R.string.today_no_task_reminder)));
+        sectionTaskAfter.setPlaceholder(new EmptyElement(getResources().getString(R.string.tomorrow_no_task_reminder)));
 
         taskItemGroup = new GroupAdapter();
         taskItemGroup.add(sectionTaskToday);
@@ -128,7 +128,7 @@ public class TaskActivity extends AppCompatActivity {
 
         taskItemGroup.setOnItemClickListener(
                 (item,view) -> {
-                    //Toast.makeText(this,"Clicked:"+item.toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Clicked:"+item.toString(),Toast.LENGTH_SHORT).show();
                     view.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.light_blue));
                 }
         );
@@ -151,7 +151,7 @@ public class TaskActivity extends AppCompatActivity {
                             TaskPriorityConverterUtil.getTaskPriorityFromString(data.getIntExtra(AddTaskActivity.TASK_PRIORITY,0)),
                             OffsetDateTime.now(),
                             getOffsetTimeFromDate(mYear,mMonth,mDate,mHour,mMinute),
-                            TaskStatus.UNDONE);
+                            TaskItem.TaskStatus.UNDONE);
                     taskViewModel.insertTask(item);
                 }
             }
@@ -161,7 +161,8 @@ public class TaskActivity extends AppCompatActivity {
     }
 
     private OffsetDateTime getOffsetTimeFromDate(int mYear,int mMonth,int mDate,int mHour,int mMinute){
-         return OffsetDateTime.of(mYear,mMonth,mDate,mHour,mMinute,0,0, ZoneOffset.of("Europe/Paris"));
+         return OffsetDateTime.of(mYear,mMonth,mDate,mHour,mMinute,0,0,
+                 ZoneId.systemDefault().getRules().getOffset(Instant.now()));
     }
 
     @Override

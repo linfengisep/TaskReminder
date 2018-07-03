@@ -3,6 +3,7 @@ package com.example.linfengwang.tasksreminder.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -16,7 +17,6 @@ import android.widget.Toast;
 import com.example.custom_views.TaskItemView;
 import com.example.database.Entity.TaskItem;
 import com.example.database.TaskPriority;
-import com.example.database.TaskStatus;
 import com.example.database.converters.TaskPriorityConverter;
 import com.example.linfengwang.tasksreminder.R;
 import com.example.linfengwang.tasksreminder.TaskUtils.CircleTransformation;
@@ -57,13 +57,13 @@ public class TaskInboxFragment extends Fragment {
                 TaskPriority.HIGH,
                 OffsetDateTime.now(),
                 OffsetDateTime.now(),
-                TaskStatus.UNDONE);
+                TaskItem.TaskStatus.UNDONE);
         taskList.add(test1);
         TaskItem test2 = new TaskItem("test2",
                 TaskPriority.HIGH,
                 OffsetDateTime.now(),
                 OffsetDateTime.now(),
-                TaskStatus.UNDONE);
+                TaskItem.TaskStatus.UNDONE);
         taskList.add(test2);
     }
 
@@ -73,9 +73,9 @@ public class TaskInboxFragment extends Fragment {
     }
 
     public class TaskUnfinishedAdapter extends RecyclerView.Adapter<TaskUnfinishedAdapter.UnfinishedTaskViewHolder>{
-        public List<TaskItem> taskList;
+         List<TaskItem> taskList;
 
-        public TaskUnfinishedAdapter(List<TaskItem> taskList){
+         TaskUnfinishedAdapter(List<TaskItem> taskList){
             this.taskList =taskList;
         }
 
@@ -95,7 +95,7 @@ public class TaskInboxFragment extends Fragment {
             return taskList.size();
         }
 
-        public class UnfinishedTaskViewHolder extends RecyclerView.ViewHolder{
+        class UnfinishedTaskViewHolder extends RecyclerView.ViewHolder{
             private AppCompatImageView icon;
             private AppCompatTextView taskTitle;
             private AppCompatTextView taskSubTitle;
@@ -105,6 +105,10 @@ public class TaskInboxFragment extends Fragment {
                 icon = v.findViewById(R.id.task_item_icon);
                 taskTitle = v.findViewById(R.id.task_item_title);
                 taskSubTitle = v.findViewById(R.id.task_item_subtitle);
+                ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(
+                        ConstraintLayout.LayoutParams.MATCH_PARENT,
+                        ConstraintLayout.LayoutParams.WRAP_CONTENT);
+                v.setLayoutParams(params);
 
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override public void onClick(View v) {
