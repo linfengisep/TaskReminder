@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.database.Entity.TaskItem;
@@ -30,11 +31,14 @@ import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.xwray.groupie.GroupAdapter;
+import com.xwray.groupie.Item;
 import com.xwray.groupie.Section;
 
 import org.threeten.bp.Instant;
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.ZoneId;
+
+import bolts.Task;
 import okhttp3.OkHttpClient;
 
 public class TaskActivity extends AppCompatActivity {
@@ -134,10 +138,21 @@ public class TaskActivity extends AppCompatActivity {
         taskItemRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         taskItemRecyclerView.setAdapter(taskItemGroup);
 
+        itemClickInit();
+    }
+
+    private void itemClickInit(){
         taskItemGroup.setOnItemClickListener(
                 (item,view) -> {
-                    Toast.makeText(this,"Clicked:"+item.toString(),Toast.LENGTH_SHORT).show();
                     view.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.light_blue));
+                   /* currentItem = item;
+                    currentView = view;*/
+                    Toast.makeText(getApplicationContext(),""+item.getId(),
+                            Toast.LENGTH_SHORT).show();
+                   if(item instanceof TaskElement){
+                       final TaskElement taskElement = (TaskElement) item;
+                       //Toast.makeText(getApplicationContext(),""+taskElement.getTaskItem().getTaskContent(),Toast.LENGTH_SHORT).show();
+                   }
                 }
         );
     }
@@ -147,13 +162,14 @@ public class TaskActivity extends AppCompatActivity {
             @Override
             public void onLeftClicked(int position) {
                 super.onLeftClicked(position);
-                Toast.makeText(getApplicationContext(),"left clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"left clicked:"+position,Toast.LENGTH_SHORT).show();
+                //taskViewModel.updateTask();
             }
 
             @Override
             public void onRightClicked(int position) {
                 super.onRightClicked(position);
-                Toast.makeText(getApplicationContext(),"right clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"right clicked:"+position,Toast.LENGTH_SHORT).show();
             }
         });
 

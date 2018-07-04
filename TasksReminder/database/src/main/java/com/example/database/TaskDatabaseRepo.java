@@ -54,4 +54,17 @@ public class TaskDatabaseRepo {
             return null;
         }
     }
+
+    public void updateTask(TaskItem taskItem){new UpdateTaskItemAsyncTask(taskItemDao).execute(taskItem);}
+
+    private static class UpdateTaskItemAsyncTask extends AsyncTask<TaskItem, Void, Void> {
+        private TaskItemDao taskItemDao;
+        UpdateTaskItemAsyncTask(TaskItemDao taskItemDao){this.taskItemDao = taskItemDao;}
+
+        @Override
+        protected Void doInBackground(TaskItem... taskItems) {
+            taskItemDao.updateTask(taskItems[0]);
+            return null;
+        }
+    }
 }

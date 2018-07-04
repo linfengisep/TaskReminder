@@ -50,6 +50,8 @@ public class TaskElement extends Item<TaskElement.TaskElementViewHolder> {
         return R.layout.task_element_layout;
     }
 
+    public TaskItem getTaskItem(){return taskItem;}
+
     private String priorityConverter(TaskElementViewHolder holder,int level){
         switch (level){
             case 1:

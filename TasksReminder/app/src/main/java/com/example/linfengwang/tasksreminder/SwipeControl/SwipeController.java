@@ -32,9 +32,9 @@ public class SwipeController extends ItemTouchHelper.Callback {
 
     private RecyclerView.ViewHolder currentItemViewHolder = null;
 
-    private SwipeControllerActions buttonsActions = null;
+    private SwipeControllerActions buttonsActions;
 
-    private static final float buttonWidth = 300;
+    private static final float buttonWidth = 250;
 
     public SwipeController(SwipeControllerActions buttonsActions) {
         this.buttonsActions = buttonsActions;
@@ -137,8 +137,8 @@ public class SwipeController extends ItemTouchHelper.Callback {
                     });
                     setItemsClickable(recyclerView, true);
                     swipeBack = false;
-
-                    if (buttonsActions != null && buttonInstance != null && buttonInstance.contains(event.getX(), event.getY())) {
+                    if (buttonsActions != null && buttonInstance != null
+                            && buttonInstance.contains(event.getX(), event.getY())) {
                         if (buttonShowedState == ButtonState.LEFT_VISIBLE) {
                             buttonsActions.onLeftClicked(viewHolder.getAdapterPosition());
                         }

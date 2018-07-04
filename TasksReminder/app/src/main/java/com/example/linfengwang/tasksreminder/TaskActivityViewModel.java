@@ -36,4 +36,7 @@ public class TaskActivityViewModel extends AndroidViewModel {
     public void deleteTask(TaskItem taskItem){
        taskRepo.deleteTask(taskItem);
     }
+    public void updateTask(TaskItem taskItem){
+       taskRepo.updateTask(taskItem);
+    }
 }
