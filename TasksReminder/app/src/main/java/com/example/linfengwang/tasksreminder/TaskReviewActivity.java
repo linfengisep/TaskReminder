@@ -1,6 +1,7 @@
 package com.example.linfengwang.tasksreminder;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,11 +10,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.linfengwang.tasksreminder.Fragment.TaskFinishedFragment;
 import com.example.linfengwang.tasksreminder.Fragment.TaskInboxFragment;
@@ -27,6 +31,10 @@ public class TaskReviewActivity extends AppCompatActivity {
     private SimpleDraweeView taskPhoto;
     private ViewPager taskPager;
     private TabLayout tabLayout;
+
+    private Typeface typefaceMedium;
+    private Typeface typefaceRegular;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +53,43 @@ public class TaskReviewActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(sourceImage);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
+        //get typeface;
+        typefaceMedium = ResourcesCompat.getFont(getApplicationContext(), R.font.quicksand);
+        typefaceRegular = ResourcesCompat.getFont(getApplicationContext(), R.font.quicksand_medium);
+
+        capitalizeTabTitleText();
+        updateTabFont(0);
+
+        tabLayout.addOnTabSelectedListener(new TabSelectedCallback());
+
+    }
+
+    private void capitalizeTabTitleText() {
+        for (int i = 0; i < tabLayout.getTabCount(); ++i) {
+            TextView tabTextView =
+                    (TextView) (((LinearLayout) ((LinearLayout) tabLayout.getChildAt(0)).getChildAt(
+                            i)).getChildAt(1));
+            tabTextView.setAllCaps(false);
+        }
+    }
+
+
+    private void updateTabFont(final int tabPosition) {
+        TextView tabTextViewFirst =
+                (TextView) (((LinearLayout) ((LinearLayout) tabLayout.getChildAt(0)).getChildAt(
+                        0)).getChildAt(1));
+        TextView tabTextViewSecond =
+                (TextView) (((LinearLayout) ((LinearLayout) tabLayout.getChildAt(0)).getChildAt(
+                        1)).getChildAt(1));
+
+        if (tabPosition == 0) {
+            tabTextViewFirst.setTypeface(typefaceMedium);
+            tabTextViewSecond.setTypeface(typefaceRegular);
+        } else {
+            tabTextViewSecond.setTypeface(typefaceMedium);
+            tabTextViewFirst.setTypeface(typefaceRegular);
         }
     }
 
@@ -100,6 +145,19 @@ public class TaskReviewActivity extends AppCompatActivity {
         private void loadFragment(Fragment fragment,String title){
             fragmentList.add(fragment);
             titleList.add(title);
+        }
+    }
+
+    private class TabSelectedCallback implements TabLayout.OnTabSelectedListener {
+
+        @Override public void onTabSelected(TabLayout.Tab tab) {
+            updateTabFont(tab.getPosition());
+        }
+
+        @Override public void onTabUnselected(TabLayout.Tab tab) {
+        }
+
+        @Override public void onTabReselected(TabLayout.Tab tab) {
         }
     }
 }

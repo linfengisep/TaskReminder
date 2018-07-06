@@ -145,8 +145,6 @@ public class TaskActivity extends AppCompatActivity {
         taskItemGroup.setOnItemClickListener(
                 (item,view) -> {
                     view.setBackgroundColor(ContextCompat.getColor(view.getContext(),R.color.light_blue));
-                   /* currentItem = item;
-                    currentView = view;*/
                     Toast.makeText(getApplicationContext(),""+item.getId(),
                             Toast.LENGTH_SHORT).show();
                    if(item instanceof TaskElement){

@@ -91,7 +91,10 @@
             android:id="@+id/tabLayout"
             android:layout_height="40dp"
             android:layout_width="match_parent"
-            android:background="@color/light_green"
+            android:background="@drawable/tab_bg"
+            app:tabTextColor="@color/orange"
+            app:tabSelectedTextColor="@color/orange"
+            app:tabTextAppearance="@style/MineCustomTabText"
             >
         </android.support.design.widget.TabLayout>
 
