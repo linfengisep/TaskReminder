@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,28 +74,7 @@ public class TaskActivity extends AppCompatActivity {
 
         //create a viewModel;
         taskViewModel = ViewModelProviders.of(this).get(TaskActivityViewModel.class);
-        taskViewModel.getAllTask()
-                .observe(this, (taskItems)-> {
-                        for(TaskItem taskItem :taskItems ){
-                            long diff = TimeFormat.compareDifference(taskItem.getTaskDeadline().toEpochSecond()*1000,
-                                    System.currentTimeMillis());
-                            if(diff==0){
-                                if(!taskItemArrayMap.containsKey(taskItem.getId())){
-                                    sectionTaskToday.add(new TaskElement(taskItem,this));
-                                    taskItemArrayMap.put(taskItem.getId(),taskItem);
-                                }
-                            } else if(TimeFormat.compareDifference(taskItem.getTaskDeadline().toEpochSecond()*1000,
-                                    System.currentTimeMillis())>0){
-                                if(!taskItemArrayMap.containsKey(taskItem.getId())){
-                                    sectionTaskAfter.add(new TaskElement(taskItem,this));
-                                    taskItemArrayMap.put(taskItem.getId(),taskItem);
-                                }
-                            } else {
-                                //add those task to the inbox;
-                            }
-                        }
-                    }
-                );
+        loadingData();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view ->{
@@ -102,6 +82,31 @@ public class TaskActivity extends AppCompatActivity {
                     AddTaskActivity.class),TASK_REQUEST_CODE);
                 }
         );
+    }
+
+    private void loadingData(){
+        taskViewModel.getAllTask()
+                .observe(this, (taskItems)-> {
+                            for(TaskItem taskItem :taskItems ){
+                                long diff = TimeFormat.compareDifference(taskItem.getTaskDeadline().toEpochSecond()*1000,
+                                        System.currentTimeMillis());
+                                if(diff==0){
+                                    if(!taskItemArrayMap.containsKey(taskItem.getId())){
+                                        sectionTaskToday.add(new TaskElement(taskItem,this));
+                                        taskItemArrayMap.put(taskItem.getId(),taskItem);
+                                    }
+                                } else if(TimeFormat.compareDifference(taskItem.getTaskDeadline().toEpochSecond()*1000,
+                                        System.currentTimeMillis())>0){
+                                    if(!taskItemArrayMap.containsKey(taskItem.getId())){
+                                        sectionTaskAfter.add(new TaskElement(taskItem,this));
+                                        taskItemArrayMap.put(taskItem.getId(),taskItem);
+                                    }
+                                } else {
+                                    //add those task to the inbox;
+                                }
+                            }
+                        }
+                );
     }
 
     private void configureMenu(){
@@ -160,14 +165,28 @@ public class TaskActivity extends AppCompatActivity {
             @Override
             public void onLeftClicked(int position) {
                 super.onLeftClicked(position);
-                Toast.makeText(getApplicationContext(),"left clicked:"+position,Toast.LENGTH_SHORT).show();
                 //taskViewModel.updateTask();
+                if(taskItemGroup.getItem(position) instanceof TaskElement){
+                    TaskElement taskElement = (TaskElement) taskItemGroup.getItem(position);
+                    TaskItem item = taskElement.getTaskItem();
+                    item.setTaskStatus(TaskItem.TaskStatus.DONE);
+                    taskViewModel.updateTask(item);
+                    Log.d("Left click",item.getTaskContent());
+                    loadingData();
+                }
             }
 
             @Override
             public void onRightClicked(int position) {
                 super.onRightClicked(position);
-                Toast.makeText(getApplicationContext(),"right clicked:"+position,Toast.LENGTH_SHORT).show();
+                if(taskItemGroup.getItem(position) instanceof TaskElement){
+                    TaskElement taskElement = (TaskElement) taskItemGroup.getItem(position);
+                    TaskItem item = taskElement.getTaskItem();
+                    Log.d("Right click",item.getTaskContent());
+                    item.setTaskStatus(TaskItem.TaskStatus.STANDBY);
+                    taskViewModel.updateTask(item);
+                    loadingData();
+                }
             }
         });
 
