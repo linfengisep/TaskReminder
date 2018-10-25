@@ -16,10 +16,10 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.database.Entity.TaskItem;
+import com.example.database.converters.TaskStatusConverter;
 import com.example.linfengwang.tasksreminder.SwipeControl.SwipeController;
 import com.example.linfengwang.tasksreminder.SwipeControl.SwipeControllerActions;
 import com.example.linfengwang.tasksreminder.TaskUtils.TaskPriorityConverterUtil;
@@ -32,14 +32,12 @@ import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.xwray.groupie.GroupAdapter;
-import com.xwray.groupie.Item;
 import com.xwray.groupie.Section;
 
 import org.threeten.bp.Instant;
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.ZoneId;
 
-import bolts.Task;
 import okhttp3.OkHttpClient;
 
 public class TaskActivity extends AppCompatActivity {
@@ -88,18 +86,24 @@ public class TaskActivity extends AppCompatActivity {
         taskViewModel.getAllTask()
                 .observe(this, (taskItems)-> {
                             for(TaskItem taskItem :taskItems ){
+                                //get the number day difference;
                                 long diff = TimeFormat.compareDifference(taskItem.getTaskDeadline().toEpochSecond()*1000,
                                         System.currentTimeMillis());
+
                                 if(diff==0){
                                     if(!taskItemArrayMap.containsKey(taskItem.getId())){
-                                        sectionTaskToday.add(new TaskElement(taskItem,this));
-                                        taskItemArrayMap.put(taskItem.getId(),taskItem);
+                                        if(TaskStatusConverter.toInteger(taskItem.getTaskStatus()) != 1){
+                                            sectionTaskToday.add(new TaskElement(taskItem,this));
+                                            taskItemArrayMap.put(taskItem.getId(),taskItem);
+                                        }
                                     }
                                 } else if(TimeFormat.compareDifference(taskItem.getTaskDeadline().toEpochSecond()*1000,
                                         System.currentTimeMillis())>0){
                                     if(!taskItemArrayMap.containsKey(taskItem.getId())){
-                                        sectionTaskAfter.add(new TaskElement(taskItem,this));
-                                        taskItemArrayMap.put(taskItem.getId(),taskItem);
+                                        if(TaskStatusConverter.toInteger(taskItem.getTaskStatus()) != 1){
+                                            sectionTaskAfter.add(new TaskElement(taskItem,this));
+                                            taskItemArrayMap.put(taskItem.getId(),taskItem);
+                                        }
                                     }
                                 } else {
                                     //add those task to the inbox;

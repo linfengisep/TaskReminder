@@ -12,7 +12,7 @@ public interface ProductInterface {
     @GET("Products/")
     Call<List<Product>> getProduct();
 
-    @GET("Products/{id}")
+    @GET("photos/{id}")
     Call<Product> getProductById(@Path("id") int productId);
 
     @POST("Products/new")

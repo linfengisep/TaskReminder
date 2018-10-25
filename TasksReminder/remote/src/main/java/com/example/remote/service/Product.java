@@ -1,57 +1,76 @@
 package com.example.remote.service;
 
-public class Product {
-    private int id;
-    private String name;
-    private int price;
-    private int buyingPrice;
+import com.google.gson.annotations.SerializedName;
 
-    public Product(int id, String name, int price, int buyingPrice) {
+public class Product {
+
+    @SerializedName("albumId")
+    private Integer albumId;
+    @SerializedName("id")
+    private Integer id;
+    @SerializedName("title")
+    private String title;
+    @SerializedName("url")
+    private String url;
+    @SerializedName("thumbnailUrl")
+    private String thumbnailUrl;
+
+    public Product(Integer albumId, Integer id, String title, String url, String thumbnailUrl) {
+        this.albumId = albumId;
         this.id = id;
-        this.name = name;
-        this.price = price;
-        this.buyingPrice = buyingPrice;
+        this.title = title;
+        this.url = url;
+        this.thumbnailUrl = thumbnailUrl;
     }
 
-    public int getId() {
+    public Integer getAlbumId() {
+        return albumId;
+    }
+
+    public void setAlbumId(Integer albumId) {
+        this.albumId = albumId;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getPrice() {
-        return price;
+    public String getUrl() {
+        return url;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public int getBuyingPrice() {
-        return buyingPrice;
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
-    public void setBuyingPrice(int buyingPrice) {
-        this.buyingPrice = buyingPrice;
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 
     @Override
     public String toString() {
         return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", buyingPrice=" + buyingPrice +
+                "albumId=" + albumId +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", thumbnailUrl='" + thumbnailUrl + '\'' +
                 '}';
     }
 }

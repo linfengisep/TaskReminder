@@ -115,7 +115,11 @@ import org.threeten.bp.OffsetDateTime;
         result = 31 * result + taskStatus.hashCode();
         return result;
     }
-
+/*
+* UNDONE:0
+* DONE:1 -> click 'Terminer'
+* STANDBY:2 -> click 'Suspendre'
+* */
     public enum TaskStatus {
         UNDONE,
         DONE,

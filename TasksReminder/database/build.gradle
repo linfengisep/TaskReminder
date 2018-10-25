@@ -3,8 +3,6 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 27
 
-
-
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 27
@@ -26,17 +24,16 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':custom_views')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    def room_version = "1.1.0"
-    implementation "android.arch.persistence.room:runtime:$room_version"
-    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
-    // optional - RxJava support for Room
-    implementation "android.arch.persistence.room:rxjava2:$room_version"
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'
-    def lifecycle_version = "1.1.1"
-    // alternatively - just LiveData
-    implementation "android.arch.lifecycle:livedata:$lifecycle_version"
+
+    api deps.android.support.appcompatV7
+    api deps.android.arch.room.runtime
+    api deps.android.arch.room.rxjava
+    api deps.android.arch.room.compiler
+
+    api deps.threetenbp
+    api deps.dagger.runtime
+    api deps.dagger.compiler
+
+    implementation deps.android.arch.lifecycle
+
 }

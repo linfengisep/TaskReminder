@@ -1,1 +1,1 @@
-include ':app', ':custom_views', ':database'
+include ':app', ':custom_views', ':database', ':remote'

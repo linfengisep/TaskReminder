@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
+archivesBaseName = 'TaskReminder'
 
 android {
     compileSdkVersion 27// for all the version below
     defaultConfig {
         applicationId "com.example.linfengwang.tasksreminder"
-        minSdkVersion 16
-        targetSdkVersion 27 //version used to test
-        versionCode 1  //version number of app
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
+        versionCode 1//buildConfig.version.code
         versionName "1.0"  //user-friendly version name for your app
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -26,29 +26,27 @@ android {
 }
 
 dependencies {
-    def lifecycle_version = "1.1.1"
-    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
-
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':custom_views')
     implementation project(':database')
-    implementation 'com.facebook.fresco:fresco:1.9.0'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:exifinterface:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    implementation 'com.android.support:design:27.1.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'
-    implementation 'com.xwray:groupie:2.1.0'
 
-    implementation 'com.facebook.stetho:stetho:1.5.0'
-    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    implementation deps.fresco
+    implementation deps.android.arch.lifecycle
+    implementation deps.android.support.appcompatV7
+    implementation deps.android.support.constraintLayout
+    implementation deps.android.support.design
+    implementation deps.androidThreetenbp
+    implementation deps.groupie.core
+    implementation deps.materialDialogs
+    implementation deps.picasso
+    implementation deps.retrofit.core
+    implementation deps.retrofit.rxjava2
+    implementation deps.stetho.stetho
+    implementation deps.stetho.okhttp3
+    //test
+    implementation deps.android.test.expresso.core
+    implementation deps.android.test.runner
+    implementation deps.junit
 
-    implementation 'com.google.dagger:dagger:2.14.1'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+
 }
