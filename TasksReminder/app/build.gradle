@@ -9,6 +9,8 @@ android {
         targetSdkVersion buildConfig.targetSdk
         versionCode 1//buildConfig.version.code
         versionName "1.0"  //user-friendly version name for your app
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -36,6 +38,10 @@ dependencies {
     implementation deps.android.support.constraintLayout
     implementation deps.android.support.design
     implementation deps.androidThreetenbp
+
+    implementation deps.dagger.runtime
+    annotationProcessor deps.dagger.compiler
+
     implementation deps.groupie.core
     implementation deps.materialDialogs
     implementation deps.picasso
@@ -47,6 +53,4 @@ dependencies {
     implementation deps.android.test.expresso.core
     implementation deps.android.test.runner
     implementation deps.junit
-
-
 }

@@ -1,5 +1,7 @@
 package com.example.linfengwang.tasksreminder;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -38,6 +40,8 @@ import org.threeten.bp.Instant;
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.ZoneId;
 
+import java.util.Calendar;
+
 import okhttp3.OkHttpClient;
 
 public class TaskActivity extends AppCompatActivity {
@@ -75,13 +79,12 @@ public class TaskActivity extends AppCompatActivity {
         loadingData();
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view ->{
+        fab.setOnClickListener(view -> {
             startActivityForResult(new Intent(getApplicationContext(),
                     AddTaskActivity.class),TASK_REQUEST_CODE);
                 }
         );
     }
-
     private void loadingData(){
         taskViewModel.getAllTask()
                 .observe(this, (taskItems)-> {

@@ -1,5 +1,6 @@
 package com.example.linfengwang.tasksreminder.Fragment;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,9 +33,12 @@ import java.util.Locale;
 public class TaskInboxFragment extends Fragment {
     private RecyclerView unfinishedTaskRecyclerView;
     private List<TaskItem> taskList = new ArrayList<>();
+    private TaskInboxFragmentViewModel taskInboxFragmentViewModel;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        taskInboxFragmentViewModel= ViewModelProviders.of(this).get(TaskInboxFragmentViewModel.class);
     }
 
     @Override
@@ -52,19 +56,14 @@ public class TaskInboxFragment extends Fragment {
     }
 
     private void loadingData(){
-        //test section task for after tomorrow;
-        TaskItem test1 = new TaskItem("test1",
-                TaskPriority.HIGH,
-                OffsetDateTime.now(),
-                OffsetDateTime.now(),
-                TaskItem.TaskStatus.UNDONE);
-        taskList.add(test1);
-        TaskItem test2 = new TaskItem("test2",
-                TaskPriority.HIGH,
-                OffsetDateTime.now(),
-                OffsetDateTime.now(),
-                TaskItem.TaskStatus.UNDONE);
-        taskList.add(test2);
+        taskInboxFragmentViewModel.getInboxTaskList().observe(this,(taskItems)->{
+            for(TaskItem item : taskItems){
+                //filter the status standby, to show them
+                if(item.getTaskStatus() == TaskItem.TaskStatus.STANDBY){
+                    taskList.add(item);
+                }
+            }
+        });
     }
 
     private void passDataToAdapter(List<TaskItem> taskList){
@@ -110,10 +109,9 @@ public class TaskInboxFragment extends Fragment {
                         ConstraintLayout.LayoutParams.WRAP_CONTENT);
                 v.setLayoutParams(params);
 
-                v.setOnClickListener(new View.OnClickListener() {
-                    @Override public void onClick(View v) {
-                        Toast.makeText(getContext(),"click",Toast.LENGTH_SHORT).show();
-                    }
+                v.setOnClickListener(view-> {
+                    Toast.makeText(getContext(),"click",Toast.LENGTH_SHORT).show();
+
                 });
             }
 

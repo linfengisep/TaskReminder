@@ -25,14 +25,14 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':custom_views')
 
-    api deps.android.support.appcompatV7
-    api deps.android.arch.room.runtime
-    api deps.android.arch.room.rxjava
-    api deps.android.arch.room.compiler
+    implementation deps.android.support.appcompatV7
+    implementation deps.android.arch.room.runtime
+    implementation deps.android.arch.room.rxjava
+    annotationProcessor deps.android.arch.room.compiler
 
-    api deps.threetenbp
-    api deps.dagger.runtime
-    api deps.dagger.compiler
+    implementation deps.androidThreetenbp
+    implementation deps.dagger.runtime
+    annotationProcessor deps.dagger.compiler
 
     implementation deps.android.arch.lifecycle
 

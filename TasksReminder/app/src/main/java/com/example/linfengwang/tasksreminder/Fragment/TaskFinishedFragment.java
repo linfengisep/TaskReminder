@@ -1,5 +1,7 @@
 package com.example.linfengwang.tasksreminder.Fragment;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,14 +18,12 @@ import android.widget.Toast;
 
 import com.example.custom_views.TaskItemView;
 import com.example.database.Entity.TaskItem;
-import com.example.database.TaskPriority;
 import com.example.database.converters.TaskPriorityConverter;
 import com.example.linfengwang.tasksreminder.R;
 import com.example.linfengwang.tasksreminder.TaskUtils.CircleTransformation;
 import com.example.linfengwang.tasksreminder.TaskUtils.DpUtil;
 import com.squareup.picasso.Picasso;
 
-import org.threeten.bp.OffsetDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +32,12 @@ import java.util.Locale;
 public class TaskFinishedFragment extends Fragment {
     private RecyclerView finishedTaskRecyclerView;
     private List<TaskItem> taskList = new ArrayList<>();
+    private TaskFinishedFragmentViewModel taskFinishedFragmentViewModel;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        taskFinishedFragmentViewModel = ViewModelProviders.of(this).get(TaskFinishedFragmentViewModel.class);
     }
 
     @Override
@@ -44,33 +47,19 @@ public class TaskFinishedFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         finishedTaskRecyclerView.setHasFixedSize(true);
         finishedTaskRecyclerView.setLayoutManager(layoutManager);
-
-        loadingData();
+        loadingData(view.getContext());
         passDataToAdapter(this.taskList);
-
         return view;
     }
 
-    private void loadingData(){
-        //test section task for after tomorrow;
-        TaskItem test1 = new TaskItem("test1",
-                TaskPriority.HIGH,
-                OffsetDateTime.now(),
-                OffsetDateTime.now(),
-                TaskItem.TaskStatus.UNDONE);
-        taskList.add(test1);
-        TaskItem test2 = new TaskItem("test2",
-                TaskPriority.HIGH,
-                OffsetDateTime.now(),
-                OffsetDateTime.now(),
-                TaskItem.TaskStatus.UNDONE);
-        taskList.add(test2);
-        TaskItem test3 = new TaskItem("test3",
-                TaskPriority.HIGH,
-                OffsetDateTime.now(),
-                OffsetDateTime.now(),
-                TaskItem.TaskStatus.UNDONE);
-        taskList.add(test3);
+    private void loadingData(Context context){
+        taskFinishedFragmentViewModel.getTaskFinishedList().observe(this,(taskItems -> {
+            if(taskItems.size() !=0){
+                taskList.addAll(taskItems);
+            }else {
+                Toast.makeText(context,"no item to show",Toast.LENGTH_SHORT).show();
+            }
+        }));
     }
 
     private void passDataToAdapter(List<TaskItem> taskList){

@@ -29,7 +29,6 @@ import org.threeten.bp.OffsetDateTime;
 
 public abstract class AppDataBase extends RoomDatabase{
     public abstract TaskItemDao taskItemDao();
-
     private static AppDataBase INSTANCE;
 
     public static AppDataBase getDatabase(final Context context){
@@ -64,7 +63,7 @@ public abstract class AppDataBase extends RoomDatabase{
 
         @Override
         protected Void doInBackground(final Void...  params){
-            taskItemDao.insertTask(new TaskItem("Shopping",
+            taskItemDao.insertTask(new TaskItem("Jeu",
                     TaskPriority.MIDDLE,
                     OffsetDateTime.now(),
                     OffsetDateTime.now(),
